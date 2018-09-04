@@ -137,6 +137,14 @@ namespace Calculator.Test.Unit
             Assert.That(uut.Divide(5, 0), Is.EqualTo(Double.PositiveInfinity));
         }
 
+        //Test for division by 0
+        [Test]
+        public void Divisions_divide4by0_returnsInfinity()
+        {
+            var uut = new CalculatorClass.Calculator();
+
+            Assert.That(uut.Divide(4, 0), Is.EqualTo(Double.PositiveInfinity));
+        }
 
 
         //Test of overloads
