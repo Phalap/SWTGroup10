@@ -6,14 +6,7 @@ namespace Calculator.Test.Unit
     [TestFixture]
     public class CalculatorUnitTests
     {
-        [Test]
-        public void Add_Add2And4_Returns6()
-        {
-            var uut = new CalculatorClass.Calculator();
-
-            Assert.That(uut.Add(2, 4), Is.EqualTo(6));
-        }
-
+        // TESTING THE "ADD" FUNCTION IN CLASS "CALCULATOR"
 
         [Test]
         public void Add_Add3And4_Returns7()
@@ -21,30 +14,6 @@ namespace Calculator.Test.Unit
             var uut = new CalculatorClass.Calculator();
 
             Assert.That(uut.Add(3, 4), Is.EqualTo(7));
-        }
-
-        [Test]
-        public void Subtract_Subtract3From4_Returns1()
-        {
-            var uut = new CalculatorClass.Calculator();
-
-            Assert.That(uut.Subtract(4, 3), Is.EqualTo(1));
-        }
-
-        [Test]
-        public void Multiply_Multiply3And4_Returns12()
-        {
-            var uut = new CalculatorClass.Calculator();
-
-            Assert.That(uut.Multiply(3, 4), Is.EqualTo(12));
-        }
-
-        [Test]
-        public void Power_Power3of2_Returns8()
-        {
-            var uut = new CalculatorClass.Calculator();
-
-            Assert.That(uut.Power(2, 3), Is.EqualTo(8));
         }
 
         [TestCase(2, 3, ExpectedResult = 5)]
@@ -57,6 +26,71 @@ namespace Calculator.Test.Unit
 
             return uut.Add(x, y);
         }
+
+        // TESTING THE "SUBTRACT" FUNCTION IN CLASS "CALCULATOR"
+
+        [Test]
+        public void Subtract_Subtract3From4_Returns1()
+        {
+            var uut = new CalculatorClass.Calculator();
+
+            Assert.That(uut.Subtract(4, 3), Is.EqualTo(1));
+        }
+
+        [TestCase(2, 3, ExpectedResult = -1)]
+        [TestCase(3, 5, ExpectedResult = -2)]
+        [TestCase(5, 2, ExpectedResult = 3)]
+        [TestCase(4, 4, ExpectedResult = 0)]
+        public double SubtractWithTestCase_Subtract2Numbers_ReturnsResult(double x, double y)
+        {
+            var uut = new CalculatorClass.Calculator();
+
+            return uut.Subtract(x, y);
+        }
+
+        // TESTING THE "MULTIPLY" FUNCTION IN CLASS "CALCULATOR"
+
+        [Test]
+        public void Multiply_Multiply3And4_Returns12()
+        {
+            var uut = new CalculatorClass.Calculator();
+
+            Assert.That(uut.Multiply(3, 4), Is.EqualTo(12));
+        }
+
+        [TestCase(2, 3, ExpectedResult = 6)]
+        [TestCase(3, 5, ExpectedResult = 15)]
+        [TestCase(5, 2, ExpectedResult = 10)]
+        [TestCase(4, 4, ExpectedResult = 16)]
+        public double MultiplyWithTestCase_Multiply2Numbers_ReturnsResult(double x, double y)
+        {
+            var uut = new CalculatorClass.Calculator();
+
+            return uut.Multiply(x, y);
+        }
+
+        // TESTING THE "POWER" FUNCTION IN CLASS "CALCULATOR"
+
+        [Test]
+        public void Power_Power3of2_Returns8()
+        {
+            var uut = new CalculatorClass.Calculator();
+
+            Assert.That(uut.Power(2, 3), Is.EqualTo(8));
+        }
+
+        [TestCase(2, 4, ExpectedResult = 16)]
+        [TestCase(3, 5, ExpectedResult = 243)]
+        [TestCase(5, 2, ExpectedResult = 25)]
+        [TestCase(4, 4, ExpectedResult = 256)]
+        public double PowerWithTestCase_Power2Numbers_ReturnsResult(double x, double y)
+        {
+            var uut = new CalculatorClass.Calculator();
+
+            return uut.Power(x, y);
+        }
+
+        // TESTING THE "DIVIDE" FUNCTION IN CLASS "CALCULATOR"
 
         //Test divide 2 positive numbers
         [Test]
@@ -103,6 +137,9 @@ namespace Calculator.Test.Unit
             Assert.That(uut.Divide(5, 0), Is.EqualTo(Double.PositiveInfinity));
         }
 
+
+
+        //Test of overloads
         #region test of overloads
 
         //Test addition of default accumulator and positive int
