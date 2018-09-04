@@ -20,7 +20,7 @@ namespace Calculator.Test.Unit
         [TestCase(3, 5, ExpectedResult = 8)]
         [TestCase(3, 6, ExpectedResult = 9)]
         [TestCase(4, 4, ExpectedResult = 8)]
-        [TestCase(4, 4, ExpectedResult = 9)]
+        [TestCase(4, 5, ExpectedResult = 9)]
         public double AddWithTestCase_Add2Numbers_ReturnsResult(double x, double y)
         {
             var uut = new CalculatorClass.Calculator();
