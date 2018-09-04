@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NUnit_test_Calculator
+namespace CalculatorClass
 {
     public class Calculator
     {
@@ -8,31 +8,31 @@ namespace NUnit_test_Calculator
 
         public double Add(double A, double B)
         {
-            Accumulator=A+B;
+            Accumulator = A + B;
             return A + B;
         }
 
         public double Subtract(double A, double B)
         {
-            Accumulator=A-B;
+            Accumulator = A - B;
             return A - B;
         }
 
         public double Multiply(double A, double B)
         {
-            Accumulator=A*B;
+            Accumulator = A * B;
             return A * B;
         }
 
         public double Power(double A, double B)
         {
-            Accumulator=Math.Pow(A,B);
-            return Math.Pow(A,B);
+            Accumulator = Math.Pow(A, B);
+            return Math.Pow(A, B);
         }
 
         public double Divide(double dividend, double divisor)
         {
-            Accumulator=dividend/divisor;
+            Accumulator = dividend / divisor;
             return dividend / divisor;
         }
 
