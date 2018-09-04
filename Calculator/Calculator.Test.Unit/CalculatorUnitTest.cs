@@ -150,6 +150,32 @@ namespace Calculator.Test.Unit
         }
 
 
+        //Test for empty accumulator
+        [Test]
+        public void Accumulator_getDefaultAccumulator_returns0()
+        {
+            var uut = new CalculatorClass.Calculator();
+            Assert.That(uut.Accumulator, Is.EqualTo(0));
+        }
+
+        //Test for accumulator with postivie result
+        [Test]
+        public void Accumulator_getPositiveAccumulator_returns2()
+        {
+            var uut = new CalculatorClass.Calculator();
+            uut.Add(1, 1); //Accumulator should now be 2, given that Add-function works properly.
+            Assert.That(uut.Accumulator, Is.EqualTo(2));
+        }
+
+        //Test for accumulator with postivie result
+        [Test]
+        public void Accumulator_getNegativeAccumulator_returnsMinus2()
+        {
+            var uut = new CalculatorClass.Calculator();
+            uut.Subtract(0, 2); //Accumulator should now be 2, given that Add-function works properly.
+            Assert.That(uut.Accumulator, Is.EqualTo(-2));
+        }
+
         //Test of overloads
         #region test of overloads
 
