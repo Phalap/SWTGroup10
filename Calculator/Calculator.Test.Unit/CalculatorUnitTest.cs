@@ -131,11 +131,12 @@ namespace Calculator.Test.Unit
 
         //Test for division by 0
         [Test]
-        public void Divisions_divide5by0_returnsInfinity()
+        public void Divisions_divide5by0_throwsDivZeroError()
         {
             var uut = new CalculatorClass.Calculator();
 
-            Assert.That(uut.Divide(5, 0), Is.EqualTo(Double.PositiveInfinity));
+            var ex =
+                Assert.Catch<DivideByZeroException>(() => uut.Divide(5, 0));
         }
 
         //Test for division by 0
@@ -144,7 +145,8 @@ namespace Calculator.Test.Unit
         {
             var uut = new CalculatorClass.Calculator();
 
-            Assert.That(uut.Divide(4, 0), Is.EqualTo(Double.PositiveInfinity));
+            var ex =
+                Assert.Catch<DivideByZeroException>(() => uut.Divide(5, 0));
         }
 
 

@@ -32,6 +32,10 @@ namespace CalculatorClass
 
         public double Divide(double dividend, double divisor)
         {
+            if(divisor==0)
+            {
+                throw new System.DivideByZeroException();
+            }
             Accumulator = dividend / divisor;
             return dividend / divisor;
         }
