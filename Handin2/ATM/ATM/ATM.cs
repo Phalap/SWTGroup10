@@ -39,14 +39,14 @@ namespace ATM
 
             //To be implemented
 
-            return
+            return true;
         }
 
         public SeperationEvent GetSeperationEventInvolvedIn(TrackData trackData)
         {
             //To be implemented
 
-            return
+            return null;
         }
 
         public void RenderSeperationEvents(List<SeperationEvent> seperationEvents)

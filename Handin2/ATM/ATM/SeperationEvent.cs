@@ -20,9 +20,9 @@ namespace ATM
             _isRaised = isRaised;
         }
 
-        public DateTime _OccurrenceTime { get; set; }
-        public List<String> _InvolvedTracks { get; set; }
-        public bool _IsRaised { get; set; }
+        public DateTime _OccurrenceTime { get { return _occurrenceTime; } set {_occurrenceTime = value; } }
+        public List<String> _InvolvedTracks { get { return _involvedTracks; } set { _involvedTracks = value; } }
+        public bool _IsRaised { get { return _isRaised; } set { _isRaised = value; } }
 
 
 

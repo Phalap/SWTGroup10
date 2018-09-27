@@ -23,7 +23,7 @@ namespace ATM
 
             //To be implemented
 
-            return
+            return true;
         }
     }
 }

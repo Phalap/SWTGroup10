@@ -10,21 +10,25 @@ namespace ATM
     {
 
         private string _tag;
-        private double _currentXcord, _currentYcord, _currentZcord;
+        private double _currentXcord, _currentYcord, _currentZcord, _currentHorzVel, _currentCourse;
 
-        public TrackData(string tag, double currentXcord, double currentYcord, double currentZcord)
+        public TrackData(string tag, double currentXcord, double currentYcord, double currentZcord, double currentHorzVel, double currentCourse)
         {
             _tag = tag;
             _currentXcord = currentXcord;
             _currentYcord = currentYcord;
             _currentZcord = currentZcord;
+            _currentHorzVel = currentHorzVel;
+            _currentCourse = currentCourse;
         }
 
-        public String _Tag { get; set; }
-        public double _CurrentXcord { get; set; }
-        public double _CurrentYcord { get; set; }
-        public double _CurrentZcord { get; set; }
+        public String _Tag { get { return _tag; } set { _tag = value; } }
+        public double _CurrentXcord { get { return _currentXcord; } set { _currentXcord = value; } }
+        public double _CurrentYcord { get { return _currentYcord; } set { _currentYcord = value; } }
+        public double _CurrentZcord { get { return _currentZcord; } set { _currentZcord = value; } }
+        public double _CurrentHorzVel { get { return _currentHorzVel; } set { _currentHorzVel = value; } }
+        public double _CurrentCourse { get { return _currentCourse; } set { _currentCourse = value; } }
 
- 
+
     }
 }
