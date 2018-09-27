@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace ATM
 {
-
- 
-    class App
+    public interface ILogger
     {
 
-       
+        void LogSeperationEvent(SeperationEvent seperationEvent);
+    
 
     }
 }
