@@ -30,8 +30,19 @@ namespace ATM
 
         public void HandleNewTrackData(TrackData trackdata)
         {
+
             //To be implemented
 
+        }
+
+        public void Update(TrackData trackData)
+        {
+            //To be implemented
+        }
+
+        public void AddFlight(TrackData trackData)
+        {
+            //To be implemented
         }
 
         public bool CheckForSeperationEvent(TrackData trackData1, TrackData trackData2)
