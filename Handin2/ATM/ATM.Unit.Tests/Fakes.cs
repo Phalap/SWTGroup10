@@ -63,11 +63,11 @@ namespace ATM.Unit.Tests
         
         public bool CheckIfInMonitoredArea(double xCord, double yCord, double zCord)
         {
-            if(xCord<_xMax || xCord>_xMin) //Check if xMin<xCord<xMax
+            if(xCord<=_xMax && xCord>=_xMin) //Check if xMin<xCord<xMax
             {
-                if (yCord < _yMax || yCord > _yMin) //Check if yMin<yCord<yMax
+                if (yCord <= _yMax && yCord >= _yMin) //Check if yMin<yCord<yMax
                 {
-                    if (zCord < _zMax || zCord > _zMin) //Check if zMin<zCord<zMax
+                    if (zCord <= _zMax && zCord >= _zMin) //Check if zMin<zCord<zMax
                     {
                         return true;
                     }

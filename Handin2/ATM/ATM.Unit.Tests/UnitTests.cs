@@ -4,18 +4,137 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TransponderReceiver;
 
 namespace ATM.Unit.Tests
 {
     [TestFixture]
     public class ATM_Unit_Tests
     {
+        double xMin = 10000;
+        double xMax = 90000;
+        double yMin = 10000;
+        double yMax = 90000;
+        double zMin = 500;
+        double zMax = 20000;
+        IAirspace airspace;
+        ILogger logger;
+        IRenderer renderer;
+        ITransponderReceiver TransponderReceiver;
+        List<SeperationEvent> seperationEvents;
+        List<TrackData> tracks;
+
+        ATM uut;
+
+        [SetUp]
+        public void setup()
+        {
+            //Setup stuff
+            airspace = new FakeAirspace(xMin, xMax, yMin, yMax, zMin, zMax);
+            logger = new FakeLogger();
+            renderer = new FakeRenderer();
+            //Make new fake TransponderReceiver.
+            seperationEvents = new List<SeperationEvent>();
+            tracks = new List<TrackData>();
+
+            uut = new ATM(logger, renderer,TransponderReceiver, airspace);
+        }
+
+        #region logging
+        #endregion
+
+        #region rendering
+        #endregion
+
+        #region airspace
+        [Test]
+        public void airspace_coordinateInAirspace_returnsTrue()
+        {
+            Assert.That(()=>airspace.CheckIfInMonitoredArea(50000, 50000, 1000).Equals(true));
+        }
+
+        #region CoordinatesTooLow
+        [Test]
+        public void airspace_xCoordinateTooLow_returnsFalse()
+        {
+            Assert.That(() => airspace.CheckIfInMonitoredArea(xMin-1, 50000, 1000).Equals(false));
+        }
 
         [Test]
-        public void Test_1_is_1()
+        public void airspace_yCoordinateTooLow_returnsFalse()
         {
-            Assert.That(1.Equals(1));
+            Assert.That(() => airspace.CheckIfInMonitoredArea(50000, yMin-1, 1000).Equals(false));
         }
+
+        [Test]
+        public void airspace_zCoordinateTooLow_returnsFalse()
+        {
+            Assert.That(() => airspace.CheckIfInMonitoredArea(50000, 50000, zMin-1).Equals(false));
+        }
+        #endregion
+
+        #region CoordinatesTooHigh
+        [Test]
+        public void airspace_xCoordinateTooHigh_returnsFalse()
+        {
+            Assert.That(() => airspace.CheckIfInMonitoredArea(xMax + 1, 50000, 1000).Equals(false));
+        }
+
+        [Test]
+        public void airspace_yCoordinateTooHigh_returnsFalse()
+        {
+            Assert.That(() => airspace.CheckIfInMonitoredArea(50000, yMax + 1, 1000).Equals(false));
+        }
+
+        [Test]
+        public void airspace_zCoordinateTooHigh_returnsFalse()
+        {
+            Assert.That(() => airspace.CheckIfInMonitoredArea(50000, 50000, zMax + 1).Equals(false));
+        }
+        #endregion
+
+        #region CoordinatesLowerBoundary
+        [Test]
+        public void airspace_xCoordinateLowerBoundary_returnsTrue()
+        {
+            Assert.That(() => airspace.CheckIfInMonitoredArea(xMin, 50000, 1000).Equals(true));
+        }
+
+        [Test]
+        public void airspace_yCoordinateLowerBoundary_returnsTrue()
+        {
+            Assert.That(() => airspace.CheckIfInMonitoredArea(50000, yMin, 1000).Equals(true));
+        }
+
+        [Test]
+        public void airspace_zCoordinateLowerBoundary_returnsTrue()
+        {
+            Assert.That(() => airspace.CheckIfInMonitoredArea(50000, 50000, zMin).Equals(true));
+        }
+        #endregion
+
+        #region CoordinatesUpperBoundary
+        [Test]
+        public void airspace_xCoordinateUpperBoundary_returnsTrue()
+        {
+            Assert.That(() => airspace.CheckIfInMonitoredArea(xMax, 50000, 1000).Equals(true));
+        }
+
+        [Test]
+        public void airspace_yCoordinateUpperBoundary_returnsTrue()
+        {
+            Assert.That(() => airspace.CheckIfInMonitoredArea(50000, yMax, 1000).Equals(true));
+        }
+
+        [Test]
+        public void airspace_zCoordinateUpperBoundary_returnsTrue()
+        {
+            Assert.That(() => airspace.CheckIfInMonitoredArea(50000, 50000, zMax).Equals(true));
+        }
+        #endregion
+        #endregion
+
+
 
 
     }
