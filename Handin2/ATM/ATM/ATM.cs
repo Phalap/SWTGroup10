@@ -62,10 +62,13 @@ namespace ATM
 
         public bool CheckForSeperationEvent(TrackData trackData1, TrackData trackData2)
         {
+            if (Math.Abs(trackData1._CurrentXcord - trackData2._CurrentXcord) < 5000 &&
+                Math.Abs(trackData1._CurrentYcord - trackData2._CurrentYcord) < 5000 &&
+                Math.Abs(trackData1._CurrentZcord - trackData2._CurrentZcord) < 300)
+                return true;
 
-            //To be implemented
-
-            return true;
+            else
+                return false;
         }
 
         public SeperationEvent GetSeperationEventInvolvedIn(TrackData trackData)
