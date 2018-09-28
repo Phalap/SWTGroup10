@@ -30,19 +30,36 @@ namespace ATM
 
         public void HandleNewTrackData(TrackData trackdata)
         {
+            bool flightExistFlag = false;
+            for (int i = 0; i < _currentTracks.Count; i++)
+            {
+                if (_currentTracks[i]._Tag == trackdata._Tag)
+                {
+                    flightExistFlag = true;
+                    _currentTracks[i]._CurrentXcord = trackdata._CurrentXcord;
+                    _currentTracks[i]._CurrentYcord = trackdata._CurrentYcord;
+                    _currentTracks[i]._CurrentZcord = trackdata._CurrentZcord;
+                    _currentTracks[i]._CurrentCourse = trackdata._CurrentCourse;
+                    _currentTracks[i]._CurrentHorzVel = trackdata._CurrentHorzVel;
+                }
+            }
 
-            //To be implemented
+            if (flightExistFlag == false)
+            {
+                AddFlight(trackdata);
+            }
+            
 
         }
 
         public void Update(TrackData trackData)
         {
-            //To be implemented
+            //Denne funktion er ikke nødvendig efter min menning, da det er nemmere at opdatere direkte i for-loopet i HandleNewTrackData.
         }
 
         public void AddFlight(TrackData trackData)
         {
-            //To be implemented
+            _currentTracks.Add(trackData);
         }
 
         public bool CheckForSeperationEvent(TrackData trackData1, TrackData trackData2)
