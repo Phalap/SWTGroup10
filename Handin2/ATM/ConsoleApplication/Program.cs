@@ -13,7 +13,7 @@ namespace ConsoleApplication
         {
 
             IRenderer renderer = new ConsoleRenderer();
-
+            
             DateTime timeOfOccurence = DateTime.Now;
 
             List<string> involvedTracks = new List<string>();
@@ -25,6 +25,8 @@ namespace ConsoleApplication
             renderer.RenderSeperationEvent(seperationEvent);
 
             TrackData trackData = new TrackData("XYZ", 100, 200, 300, 10, 270);
+            
+            
 
             renderer.RenderTrack(trackData);
 

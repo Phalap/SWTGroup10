@@ -30,12 +30,11 @@ namespace ATM
 
         public void HandleNewTrackData(TrackData trackdata)
         {
-            bool flightExistFlag = false;
+            
             for (int i = 0; i < _currentTracks.Count; i++)
             {
                 if (_currentTracks[i]._Tag == trackdata._Tag)
                 {
-                    flightExistFlag = true;
                     _currentTracks[i]._CurrentXcord = trackdata._CurrentXcord;
                     _currentTracks[i]._CurrentYcord = trackdata._CurrentYcord;
                     _currentTracks[i]._CurrentZcord = trackdata._CurrentZcord;
@@ -44,12 +43,11 @@ namespace ATM
                 }
             }
 
-            if (flightExistFlag == false)
+            if (_currentTracks.Exists(x => x._Tag == trackdata._Tag) == false)
             {
                 AddFlight(trackdata);
             }
             
-
         }
 
         public void Update(TrackData trackData)
