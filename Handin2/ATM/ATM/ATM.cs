@@ -30,7 +30,7 @@ namespace ATM
 
         public void HandleNewTrackData(TrackData trackdata)
         {
-            
+
             for (int i = 0; i < _currentTracks.Count; i++)
             {
                 if (_currentTracks[i]._Tag == trackdata._Tag)
