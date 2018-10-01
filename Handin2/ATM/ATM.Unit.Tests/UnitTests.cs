@@ -46,14 +46,16 @@ namespace ATM.Unit.Tests
 
         #region logging
 
+        #region ActiveSeparationEvent logging
+
         [Test]
-        public void logging_nothingCalled_MethodHasNotBeenCalled()
+        public void active_logging_nothingCalled_MethodHasNotBeenCalled()
         {
-            Assert.That(logger.LogSeperationEvent_timesCalled.Equals(0));
+            Assert.That(logger.LogActiveSeparationEvent_timesCalled.Equals(0));
         }
 
         [Test]
-        public void logging_logSeperationEvent_MethodHasBeenCalled()
+        public void active_logging_logActiveSeperationEvent_MethodHasBeenCalled()
         {
             TrackData trackData1 = new TrackData("ABC", 10000, 20000, 3000, timestamp, 100, 10);
             TrackData trackData2 = new TrackData("DEF", 10000, 20000, 3000, timestamp, 100, 10);
@@ -65,7 +67,7 @@ namespace ATM.Unit.Tests
             SeperationEvent seperationEvent = new SeperationEvent(timestamp, trackDatas, true);
 
             uut.LogSeperationEvent(seperationEvent);
-            Assert.That(logger.LogSeperationEvent_timesCalled.Equals(1));
+            Assert.That(logger.LogActiveSeparationEvent_timesCalled.Equals(1));
         }
 
         [Test]
@@ -133,7 +135,7 @@ namespace ATM.Unit.Tests
         }
 
         #endregion
-
+#endregion
         #region rendering
         #region renderSeperationEvent
         [Test]
