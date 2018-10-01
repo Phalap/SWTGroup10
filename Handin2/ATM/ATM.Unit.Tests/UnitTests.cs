@@ -47,16 +47,6 @@ namespace ATM.Unit.Tests
         [Test]
         public void logging_nothingCalled_MethodHasNotBeenCalled()
         {
-            TrackData trackData1 = new TrackData("ABC", 10000, 20000, 3000, timestamp, 100, 10);
-            TrackData trackData2 = new TrackData("DEF", 10000, 20000, 3000, timestamp, 100, 10);
-            List<TrackData> trackDatas = new List<TrackData>
-            {
-                trackData1,
-                trackData2
-            };
-            SeperationEvent seperationEvent = new SeperationEvent(timestamp, trackDatas, true);
-
-            uut.LogSeperationEvent(seperationEvent);
             Assert.That(logger.LogSeperationEvent_timesCalled.Equals(0));
         }
 
