@@ -134,6 +134,89 @@ namespace ATM.Unit.Tests
         #endregion
         #endregion
 
+        #region AddTrack
+        [Test]
+        public void AddTrack_NoTracksAdded_CountIs0()
+        {
+            Assert.That(() => uut._currentTracks.Count.Equals(0));
+        }
+
+        [Test]
+        public void AddTrack_TrackAdded_CountIs1()
+        {
+            uut.AddTrack(new TrackData("ABC", 10000, 10000, 1000, 100, 10));
+            Assert.That(() => uut._currentTracks.Count.Equals(1));
+        }
+
+        [Test]
+        public void AddTrack_10TracksAdded_CountIs10()
+        {
+            for (int i=0; i<10;i++)
+            {
+                uut.AddTrack(new TrackData("ABC", 10000, 10000, 1000, 100, 10));
+            }
+
+            Assert.That(() => uut._currentTracks.Count.Equals(10));
+        }
+
+        [Test]
+        public void AddTrack_TrackAdded_TagInFirstListObjectMatchesTagOfAddedTrack()
+        {
+            TrackData testTrack = new TrackData("ABC", 10000, 10000, 1000, 100, 10);
+            uut.AddTrack(testTrack);
+            Assert.That(() => uut._currentTracks[0]._Tag.Equals(testTrack._Tag));
+        }
+
+        [Test]
+        public void AddTrack_AddTrackThenAddTrackWithSameTag_CountIs1()
+        {
+            TrackData testTrack1 = new TrackData("ABC", 10000, 10000, 1000, 100, 10);
+            TrackData testTrack2 = new TrackData("ABC", 20000, 10000, 1000, 100, 10);
+            uut.AddTrack(testTrack1);
+            uut.AddTrack(testTrack2);
+            Assert.That(() => uut._currentTracks.Count.Equals(1));
+        }
+
+        [Test]
+        public void AddTrack_AddTrackThenAddTrackWithSameTag_XPositionOfObjectInListMatchesXPositionOfLastAddedTrack()
+        {
+            TrackData testTrack1 = new TrackData("ABC", 10000, 10000, 1000, 100, 10);
+            TrackData testTrack2 = new TrackData("ABC", 20000, 10000, 1000, 100, 10);
+            uut.AddTrack(testTrack1);
+            uut.AddTrack(testTrack2);
+            Assert.That(() => uut._currentTracks[0]._CurrentXcord.Equals(testTrack2._CurrentXcord));
+        }
+        #endregion
+
+        #region RemoveTrack
+        [Test]
+        public void RemoveTrack_Add3TracksRemove1TrackWIthValidTag_CountIs2()
+        {
+            uut.AddTrack(new TrackData("ABC", 10000, 10000, 1000, 100, 10));
+            uut.AddTrack(new TrackData("DEF", 10000, 10000, 1000, 100, 10));
+            uut.AddTrack(new TrackData("GHI", 10000, 10000, 1000, 100, 10));
+
+            uut.RemoveTrack("ABC");
+
+            Assert.That(() => uut._currentTracks.Count.Equals(2));
+        }
+
+        [Test]
+        public void RemoveTrack_Add3TracksRemove1TrackWIthInvalidTag_ThrowsArgumentOutOfRangeException()
+        {
+            uut.AddTrack(new TrackData("ABC", 10000, 10000, 1000, 100, 10));
+            uut.AddTrack(new TrackData("DEF", 10000, 10000, 1000, 100, 10));
+            uut.AddTrack(new TrackData("GHI", 10000, 10000, 1000, 100, 10));
+
+            Assert.That(() => uut.RemoveTrack("XYZ"),Throws.Exception.TypeOf<ArgumentOutOfRangeException>());
+        }
+
+        [Test]
+        public void RemoveTrack_RemoveTrackFromEmptyList_ThrowsArgumentOutOfRangeException()
+        {
+            Assert.That(() => uut.RemoveTrack("XYZ"), Throws.Exception.TypeOf<ArgumentOutOfRangeException>());
+        }
+        #endregion
 
 
 
