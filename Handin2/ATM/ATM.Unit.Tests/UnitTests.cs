@@ -19,7 +19,7 @@ namespace ATM.Unit.Tests
         double zMax = 20000;
         Airspace airspace;
         FakeLogger logger;
-        IRenderer renderer;
+        FakeRenderer renderer;
         ITransponderReceiver TransponderReceiver;
         List<SeperationEvent> seperationEvents;
         List<TrackData> tracks;
@@ -113,7 +113,6 @@ namespace ATM.Unit.Tests
             uut.LogSeperationEvent(seperationEvent);
             Assert.That(logger.ParametersList[0]._OccurrenceTime.Equals(seperationEvent._OccurrenceTime));
         }
-        #endregion
 
         [Test]
         public void logging_logSeperationEvent_RaisedIsSame()
@@ -131,9 +130,41 @@ namespace ATM.Unit.Tests
             Assert.That(logger.ParametersList[0]._IsRaised.Equals(seperationEvent._IsRaised));
         }
 
-        #region rendering
-        
+        #endregion
 
+
+
+        #region rendering
+
+        [Test]
+        public void rendering_nothingCalled_MethodHasNotBeenCalled()
+        {
+            Assert.That(() => renderer.RenderSeperationEvent_TimesCalled.Equals(0));
+        }
+
+        [Test]
+        public void rendering_RenderSeperationEventCalledWithNoEventsInList_MethodHasNotBeenCalled()
+        {
+            uut.RenderSeperationEvents();
+            Assert.That(() => renderer.RenderSeperationEvent_TimesCalled.Equals(0));
+        }
+
+
+        [Test]
+        public void rendering_RenderSeperationEventCalledWith2EventsInList_MethodHasBeenCalled2Times()
+        {
+            List<TrackData> trackDatas = new List<TrackData>()
+            {
+                new TrackData("ABC",1,2,3,"time",5,6),
+                new TrackData("ABC",1,2,3,"time",5,6)
+            };
+            SeperationEvent seperationEvent1 = new SeperationEvent("time", trackDatas, true);
+            uut._currentSeperationEvents.Add(seperationEvent1);
+            uut._currentSeperationEvents.Add(seperationEvent1);
+
+            uut.RenderSeperationEvents();
+            Assert.That(() => renderer.RenderSeperationEvent_TimesCalled.Equals(2));
+        }
 
 
         #endregion
