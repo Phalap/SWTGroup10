@@ -99,14 +99,8 @@ namespace ATM
 
         }
 
-<<<<<<< HEAD
-        public void RenderSeperationEvents()
-=======
-<<<<<<< HEAD
-        public void RenderTracks()
-=======
+
         public void RenderSeperationEvents(List<SeperationEvent> seperationEvents)
->>>>>>> 30a8fc3ce3bda011d6096d29b4b9ac224198e593
         {
             foreach (var seperationEvent in _currentSeperationEvents)
             {
@@ -114,21 +108,13 @@ namespace ATM
             }
         }
 
-<<<<<<< HEAD
-        public void RenderTracks()
-=======
         public void RenderTracks(List<TrackData> trackDatas)
->>>>>>> 4438cb01ad24a71da2f46b92bd4c1250f4ffd75d
->>>>>>> 30a8fc3ce3bda011d6096d29b4b9ac224198e593
         {
             foreach (var trackData in _currentTracks)
             {
                 _renderer.RenderTrack(trackData);
             }
-<<<<<<< HEAD
-=======
 
->>>>>>> 30a8fc3ce3bda011d6096d29b4b9ac224198e593
         }
 
         public void LogSeperationEvent(SeperationEvent seperationEvent)
