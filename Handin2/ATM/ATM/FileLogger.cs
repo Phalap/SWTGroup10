@@ -13,8 +13,8 @@ namespace ATM
         public static string startupPath = System.IO.Directory.GetCurrentDirectory();
         private string fileName = "fileLogger.txt";
 
-        private string seperationEventRaised = "Raised";
-        private string seperationEventDiscontinued = "Discontinued";
+        private string seperationEventActive = "Active";
+        private string seperationEventInactive = "Inactive";
 
 
         public void LogSeperationEvent(SeperationEvent seperationEvent)
@@ -31,12 +31,12 @@ namespace ATM
             //Creating string for logging and logging the string with relevant information
             if (isRaised == false)
             {
-                string lineToLog = "Timestamp: " + timeOfOccurence + "  " + "Flight 1: " + track1._Tag + " | " + "Flight 2: " + track2._Tag + " | " + "SeperationEvent status: " + seperationEventDiscontinued;
+                string lineToLog = "Timestamp: " + timeOfOccurence + "  " + "Flight 1: " + track1._Tag + " | " + "Flight 2: " + track2._Tag + " | " + "SeperationEvent status: " + seperationEventInactive;
                 streamWriter.Write(lineToLog);
             }
             else
             {
-                string lineToLog = "Timestamp: " + timeOfOccurence + "  " + "Flight 1: " + track1._Tag + " | " + "Flight 2: " + track2._Tag + " | " + "SeperationEvent status: " + seperationEventRaised;
+                string lineToLog = "Timestamp: " + timeOfOccurence + "  " + "Flight 1: " + track1._Tag + " | " + "Flight 2: " + track2._Tag + " | " + "SeperationEvent status: " + seperationEventActive;
                 //Perhaps it should be WriteLineAsync in order to keep up with the system
                 streamWriter.WriteLine(lineToLog);
             }
