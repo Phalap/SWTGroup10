@@ -17,7 +17,7 @@ namespace ATM.Unit.Tests
         double yMax = 90000;
         double zMin = 500;
         double zMax = 20000;
-        IAirspace airspace;
+        Airspace airspace;
         FakeLogger logger;
         IRenderer renderer;
         ITransponderReceiver TransponderReceiver;
@@ -31,7 +31,7 @@ namespace ATM.Unit.Tests
         public void setup()
         {
             //Setup stuff
-            airspace = new FakeAirspace(xMin, xMax, yMin, yMax, zMin, zMax);
+            airspace = new Airspace(xMin, xMax, yMin, yMax, zMin, zMax);
             logger = new FakeLogger();
             renderer = new FakeRenderer();
             //Make new fake TransponderReceiver.
@@ -66,6 +66,7 @@ namespace ATM.Unit.Tests
             Assert.That(logger.LogSeperationEvent_timesCalled.Equals(1));
         }
 
+        [Test]
         public void logging_logSeperationEvent_Tag1IsSame()
         {
             TrackData trackData1 = new TrackData("ABC", 10000, 20000, 3000, timestamp, 100, 10);
@@ -81,6 +82,7 @@ namespace ATM.Unit.Tests
             Assert.That(logger.ParametersList[0]._InvolvedTracks[0]._Tag.Equals(seperationEvent._InvolvedTracks[0]._Tag));
         }
 
+        [Test]
         public void logging_logSeperationEvent_Tag2IsSame()
         {
             TrackData trackData1 = new TrackData("ABC", 10000, 20000, 3000, timestamp, 100, 10);
@@ -96,6 +98,7 @@ namespace ATM.Unit.Tests
             Assert.That(logger.ParametersList[0]._InvolvedTracks[1]._Tag.Equals(seperationEvent._InvolvedTracks[1]._Tag));
         }
 
+        [Test]
         public void logging_logSeperationEvent_OccurenteTimeIsSame()
         {
             TrackData trackData1 = new TrackData("ABC", 10000, 20000, 3000, timestamp, 100, 10);
@@ -112,6 +115,7 @@ namespace ATM.Unit.Tests
         }
         #endregion
 
+        [Test]
         public void logging_logSeperationEvent_RaisedIsSame()
         {
             TrackData trackData1 = new TrackData("ABC", 10000, 20000, 3000, timestamp, 100, 10);
@@ -128,6 +132,10 @@ namespace ATM.Unit.Tests
         }
 
         #region rendering
+        
+
+
+
         #endregion
 
         #region airspace
