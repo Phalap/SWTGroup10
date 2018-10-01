@@ -126,8 +126,7 @@ namespace ATM
 
         public void LogSeperationEvent(SeperationEvent seperationEvent)
         {
-            //To be implemented
-
+            _logger.LogSeperationEvent(seperationEvent);
         }
 
         public void SubscribeToTransponderDataReady()
