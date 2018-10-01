@@ -187,7 +187,7 @@ namespace ATM.Unit.Tests
         {
             uut._currentTracks.Add(new TrackData("ABC", 1, 2, 3, "time", 1, 2));
             uut._currentTracks.Add(new TrackData("DEF", 1, 2, 3, "time", 1, 2));
-            Assert.That(() => renderer.RenderTrackData_TimesCalled.Equals(1));
+            Assert.That(() => renderer.RenderTrackData_TimesCalled.Equals(2));
         }
         #endregion
         #endregion
