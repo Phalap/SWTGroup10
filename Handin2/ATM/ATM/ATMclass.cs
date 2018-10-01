@@ -136,6 +136,7 @@ namespace ATM
 
                         SeperationEvent SeperationEvent = new SeperationEvent(time, trackDataInSeperationEvent, true);
                         _currentSeperationEvents.Add(SeperationEvent);
+                        _logger.LogSeperationEvent(SeperationEvent);
                         return true;
                     }
 
