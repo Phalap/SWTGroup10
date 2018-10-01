@@ -106,15 +106,21 @@ namespace ATM
             return null;
         }
 
+
         public void RenderSeperationEvents(List<SeperationEvent> seperationEvents)
         {
-            //To be implemented
-
+            foreach (var seperationEvent in _currentSeperationEvents)
+            {
+                _renderer.RenderSeperationEvent(seperationEvent);
+            }
         }
 
         public void RenderTracks(List<TrackData> trackDatas)
         {
-            //To be implemented
+            foreach (var trackData in _currentTracks)
+            {
+                _renderer.RenderTrack(trackData);
+            }
 
         }
 
