@@ -9,5 +9,6 @@ namespace ATM
     public interface IObserver
     {
         void Update(TrackData trackdata);
+        //slet dette igen
     }
 }
