@@ -274,6 +274,7 @@ namespace ATM.Unit.Tests
         [Test]
         public void rendering_RenderTracksCalledWithNoTracksInList_RenderTrackHasNotBeenCalled()
         {
+            uut.RenderTracks();
             Assert.That(() => renderer.RenderTrackData_TimesCalled.Equals(0));
         }
 
@@ -282,6 +283,7 @@ namespace ATM.Unit.Tests
         {
             uut._currentTracks.Add(new TrackData("ABC", 1, 2, 3, "time", 1, 2));
             uut._currentTracks.Add(new TrackData("DEF", 1, 2, 3, "time", 1, 2));
+            uut.RenderTracks();
             Assert.That(() => renderer.RenderTrackData_TimesCalled.Equals(2));
         }
         #endregion
