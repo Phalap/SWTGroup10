@@ -66,7 +66,7 @@ namespace ATM.Unit.Tests
             };
             SeperationEvent seperationEvent = new SeperationEvent(timestamp, trackDatas, true);
 
-            uut.LogActiveSeparationEvent(seperationEvent);
+            uut.CheckForSeperationEvent(trackData1,trackData2);
             Assert.That(logger.LogActiveSeparationEvent_timesCalled.Equals(1));
         }
 
@@ -82,7 +82,7 @@ namespace ATM.Unit.Tests
             };
             SeperationEvent seperationEvent = new SeperationEvent(timestamp, trackDatas, true);
 
-            uut.LogActiveSeparationEvent(seperationEvent);
+            uut.CheckForSeperationEvent(trackData1,trackData2);
             Assert.That(logger.ParametersList[0]._InvolvedTracks[0]._Tag.Equals(seperationEvent._InvolvedTracks[0]._Tag));
         }
 
@@ -98,7 +98,7 @@ namespace ATM.Unit.Tests
             };
             SeperationEvent seperationEvent = new SeperationEvent(timestamp, trackDatas, true);
 
-            uut.LogActiveSeparationEvent(seperationEvent);
+            //uut.LogActiveSeparationEvent(seperationEvent);
             Assert.That(logger.ParametersList[0]._InvolvedTracks[1]._Tag.Equals(seperationEvent._InvolvedTracks[1]._Tag));
         }
 
@@ -114,7 +114,7 @@ namespace ATM.Unit.Tests
             };
             SeperationEvent seperationEvent = new SeperationEvent(timestamp, trackDatas, true);
 
-            uut.LogActiveSeparationEvent(seperationEvent);
+            //uut.LogActiveSeparationEvent(seperationEvent);
             Assert.That(logger.ParametersList[0]._OccurrenceTime.Equals(seperationEvent._OccurrenceTime));
         }
 
@@ -130,7 +130,7 @@ namespace ATM.Unit.Tests
             };
             SeperationEvent seperationEvent = new SeperationEvent(timestamp, trackDatas, true);
 
-            uut.LogActiveSeparationEvent(seperationEvent);
+            //uut.LogActiveSeparationEvent(seperationEvent);
             Assert.That(logger.ParametersList[0]._IsRaised.Equals(seperationEvent._IsRaised));
         }
 
@@ -158,7 +158,7 @@ namespace ATM.Unit.Tests
             };
             SeperationEvent seperationEvent = new SeperationEvent(timestamp, trackDatas, true);
 
-            uut.LogInactiveSeparationEvent(seperationEvent);
+            //uut.
             Assert.That(logger.LogInactiveSeparationEvent_timesCalled.Equals(1));
         }
 
@@ -174,12 +174,12 @@ namespace ATM.Unit.Tests
             };
             SeperationEvent seperationEvent = new SeperationEvent(timestamp, trackDatas, true);
 
-            uut.LogActiveSeparationEvent(seperationEvent);
+            //uut.LogInactiveSeparationEvent(seperationEvent);
             Assert.That(logger.ParametersList[0]._InvolvedTracks[0]._Tag.Equals(seperationEvent._InvolvedTracks[0]._Tag));
         }
 
         [Test]
-        public void logging_logActiveSeparationEvent_Tag2IsSame()
+        public void logging_loginactiveSeparationEvent_Tag2IsSame()
         {
             TrackData trackData1 = new TrackData("ABC", 10000, 20000, 3000, timestamp, 100, 10);
             TrackData trackData2 = new TrackData("DEF", 10000, 20000, 3000, timestamp, 100, 10);
@@ -190,12 +190,12 @@ namespace ATM.Unit.Tests
             };
             SeperationEvent seperationEvent = new SeperationEvent(timestamp, trackDatas, true);
 
-            uut.LogActiveSeparationEvent(seperationEvent);
+            //uut._logger.LogInactiveSeparationEvent(seperationEvent);
             Assert.That(logger.ParametersList[0]._InvolvedTracks[1]._Tag.Equals(seperationEvent._InvolvedTracks[1]._Tag));
         }
 
         [Test]
-        public void logging_logActiveSeparationEvent_OccurenteTimeIsSame()
+        public void logging_logInactiveSeparationEvent_OccurenteTimeIsSame()
         {
             TrackData trackData1 = new TrackData("ABC", 10000, 20000, 3000, timestamp, 100, 10);
             TrackData trackData2 = new TrackData("DEF", 10000, 20000, 3000, timestamp, 100, 10);
@@ -206,12 +206,12 @@ namespace ATM.Unit.Tests
             };
             SeperationEvent seperationEvent = new SeperationEvent(timestamp, trackDatas, true);
 
-            uut.LogActiveSeparationEvent(seperationEvent);
+            //LogActiveSeparationEvent(seperationEvent);
             Assert.That(logger.ParametersList[0]._OccurrenceTime.Equals(seperationEvent._OccurrenceTime));
         }
 
         [Test]
-        public void logging_logActiveSeparationEvent_RaisedIsSame()
+        public void logging_logInactiveSeparationEvent_RaisedIsSame()
         {
             TrackData trackData1 = new TrackData("ABC", 10000, 20000, 3000, timestamp, 100, 10);
             TrackData trackData2 = new TrackData("DEF", 10000, 20000, 3000, timestamp, 100, 10);
@@ -222,7 +222,7 @@ namespace ATM.Unit.Tests
             };
             SeperationEvent seperationEvent = new SeperationEvent(timestamp, trackDatas, true);
 
-            uut.LogActiveSeparationEvent(seperationEvent);
+            //uut.LogActiveSeparationEvent(seperationEvent);
             Assert.That(logger.ParametersList[0]._IsRaised.Equals(seperationEvent._IsRaised));
         }
 
@@ -230,8 +230,6 @@ namespace ATM.Unit.Tests
 
         #endregion
 
-
-#endregion
 
         #region rendering
         #region renderSeperationEvent
