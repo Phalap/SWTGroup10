@@ -81,7 +81,7 @@ namespace ATM
                 CheckForSeperationEvents(trackToEdit);
 
                 // Remove separations event after update
-                
+                RemoveSeparationEvents();
 
                 // Render updated tracks to console 
                 RenderTracks();
@@ -138,9 +138,9 @@ namespace ATM
             }
             else
             {
-                if (Math.Abs(trackData1._CurrentXcord - trackData2._CurrentXcord) < 500 &&
-                    Math.Abs(trackData1._CurrentYcord - trackData2._CurrentYcord) < 500 &&
-                    Math.Abs(trackData1._CurrentZcord - trackData2._CurrentZcord) < 50000)
+                if (Math.Abs(trackData1._CurrentXcord - trackData2._CurrentXcord) < 5000 &&
+                    Math.Abs(trackData1._CurrentYcord - trackData2._CurrentYcord) < 5000 &&
+                    Math.Abs(trackData1._CurrentZcord - trackData2._CurrentZcord) < 300)
                 {
                     // Check if separation event already exists
                     if (GetSeperationEventInvolvedIn(trackData1, trackData2))
@@ -157,6 +157,7 @@ namespace ATM
 
                         SeperationEvent SeperationEvent = new SeperationEvent(time, trackDataInSeperationEvent, true);
                         _currentSeperationEvents.Add(SeperationEvent);
+                        _logger.LogActiveSeparationEvent(SeperationEvent);
                         _logger.LogActiveSeparationEvent(SeperationEvent);
                         return true;
                     }
@@ -192,7 +193,7 @@ namespace ATM
             {
                 _renderer.RenderSeperationEvent(seperationEvent);
             }
-            Console.WriteLine(_currentSeperationEvents.Count);
+            Console.WriteLine("Number of separation events: " + _currentSeperationEvents.Count);
         }
 
         public void RenderTracks()
@@ -204,11 +205,6 @@ namespace ATM
                 _renderer.RenderTrack(trackData);
             }
 
-        }
-
-        public void LogActiveSeparationEvent(SeperationEvent seperationEvent)
-        {
-            _logger.LogActiveSeparationEvent(seperationEvent);
         }
 
         public void RemoveSeparationEvents()
@@ -227,6 +223,7 @@ namespace ATM
                 else
                 {
                     _currentSeperationEvents.Remove(separationEvent);
+                    _logger.LogInactiveSeparationEvent(separationEvent);
                 }
             }
         }
