@@ -187,7 +187,7 @@ namespace ATM
 
         }
 
-        public void LogActiveSeperationEvent(SeperationEvent seperationEvent)
+        public void LogActiveSeparationEvent(SeperationEvent seperationEvent)
         {
             _logger.LogActiveSeparationEvent(seperationEvent);
         }
