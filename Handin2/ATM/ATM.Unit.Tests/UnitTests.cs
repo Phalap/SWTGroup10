@@ -132,9 +132,6 @@ namespace ATM.Unit.Tests
         }
 
         #region rendering
-        
-        [Test]
-        public void renderer_
 
 
         #endregion
