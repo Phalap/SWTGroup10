@@ -31,17 +31,12 @@ namespace ATM
         public void HandleNewTrackData(TrackData trackdata)
         {
 
-            for (int i = 0; i < _currentTracks.Count; i++)
-            {
-                if (_currentTracks[i]._Tag == trackdata._Tag)
-                {
-                    _currentTracks[i]._CurrentXcord = trackdata._CurrentXcord;
-                    _currentTracks[i]._CurrentYcord = trackdata._CurrentYcord;
-                    _currentTracks[i]._CurrentZcord = trackdata._CurrentZcord;
-                    _currentTracks[i]._CurrentCourse = trackdata._CurrentCourse;
-                    _currentTracks[i]._CurrentHorzVel = trackdata._CurrentHorzVel;
-                }
-            }
+            TrackData trackToEdit = _currentTracks.Find(x => x._Tag == trackdata._Tag);
+            trackToEdit._CurrentXcord = trackdata._CurrentXcord;
+            trackToEdit._CurrentYcord = trackdata._CurrentYcord;
+            trackToEdit._CurrentZcord = trackdata._CurrentZcord;
+            trackToEdit._CurrentCourse = trackdata._CurrentCourse;
+            trackToEdit._CurrentHorzVel = trackToEdit._CurrentHorzVel;
 
             if (_currentTracks.Exists(x => x._Tag == trackdata._Tag) == false)
             {
