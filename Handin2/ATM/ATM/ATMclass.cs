@@ -62,6 +62,9 @@ namespace ATM
                 // Check for potential seperation events
                 CheckForSeperationEvents(trackToEdit);
 
+                // Remove separations event after update
+                
+
                 // Render updated tracks to console 
                 RenderTracks();
 
@@ -189,16 +192,24 @@ namespace ATM
             _logger.LogSeperationEvent(seperationEvent);
         }
 
-        public void SubscribeToTransponderDataReady()
+        public void RemoveSeparationEvents()
         {
-            //To be implemented
+            foreach (var separationEvent in _currentSeperationEvents)
+            {
+                if (Math.Abs(separationEvent._InvolvedTracks[0]._CurrentXcord -
+                             separationEvent._InvolvedTracks[1]._CurrentXcord) < 5000 &&
+                    Math.Abs(separationEvent._InvolvedTracks[0]._CurrentYcord -
+                             separationEvent._InvolvedTracks[1]._CurrentYcord) < 5000 &&
+                    Math.Abs(separationEvent._InvolvedTracks[0]._CurrentZcord -
+                             separationEvent._InvolvedTracks[1]._CurrentZcord) < 300)
+                {
 
-        }
-
-        public void OnTransponderDataReady()
-        {
-            //To be implemented
-
+                }
+                else
+                {
+                    _currentSeperationEvents.Remove(separationEvent);
+                }
+            }
         }
 
         public void Update(TrackData trackdata)
