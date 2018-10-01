@@ -30,20 +30,29 @@ namespace ATM.Unit.Tests
 
     public class FakeLogger : ILogger
     {
-        public int LogSeperationEvent_timesCalled { get; set; }
+        public int LogActiveSeparationEvent_timesCalled { get; set; }
+        public int LogInactiveSeparationEvent_timesCalled { get; set; }
         public List<SeperationEvent> ParametersList { get; set; }
 
         public FakeLogger()
         {
             ParametersList = new List<SeperationEvent>();
-            LogSeperationEvent_timesCalled = 0;
+            LogActiveSeparationEvent_timesCalled = 0;
+            LogInactiveSeparationEvent_timesCalled = 0;
         }
 
-        public void LogSeperationEvent(SeperationEvent seperationEvent)
+        public void LogActiveSeparationEvent(SeperationEvent seperationEvent)
         {
             ParametersList.Add(seperationEvent);
-            LogSeperationEvent_timesCalled++;
+            LogActiveSeparationEvent_timesCalled++;
         }
+
+        public void LogInactiveSeparationEvent(SeperationEvent seperationEvent)
+        {
+            ParametersList.Add(seperationEvent);
+            LogInactiveSeparationEvent_timesCalled++;
+        }
+
     }
 
     class FakeAirspace : IAirspace
