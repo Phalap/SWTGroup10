@@ -119,13 +119,9 @@ namespace ATM
 
         }
 
-        public void LogSeperationEvent()
+        public void LogSeperationEvent(SeperationEvent seperationEvent)
         {
-            foreach (var seperationEvent in _currentSeperationEvents)
-            {
-                _logger.LogSeperationEvent(seperationEvent);
-            }
-
+            _logger.LogSeperationEvent(seperationEvent);
         }
 
         public void SubscribeToTransponderDataReady()

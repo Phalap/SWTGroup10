@@ -28,18 +28,20 @@ namespace ATM.Unit.Tests
         }
     }
 
-    class FakeLogger : ILogger
+    public class FakeLogger : ILogger
     {
         public int LogSeperationEvent_timesCalled { get; set; }
-        public SeperationEvent parameters { get; set; }
+        public List<SeperationEvent> ParametersList { get; set; }
 
         public FakeLogger()
         {
+            ParametersList = new List<SeperationEvent>();
             LogSeperationEvent_timesCalled = 0;
         }
 
         public void LogSeperationEvent(SeperationEvent seperationEvent)
         {
+            ParametersList.Add(seperationEvent);
             LogSeperationEvent_timesCalled++;
         }
     }
