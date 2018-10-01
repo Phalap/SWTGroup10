@@ -32,18 +32,23 @@ namespace ATM
         public void HandleNewTrackData(TrackData trackdata)
         {
 
-            TrackData trackToEdit = _currentTracks.Find(x => x._Tag == trackdata._Tag);
-            trackToEdit._CurrentXcord = trackdata._CurrentXcord;
-            trackToEdit._CurrentYcord = trackdata._CurrentYcord;
-            trackToEdit._CurrentZcord = trackdata._CurrentZcord;
-            trackToEdit._CurrentCourse = trackdata._CurrentCourse;
-            trackToEdit._CurrentHorzVel = trackToEdit._CurrentHorzVel;
+            for (int i = 0; i < _currentTracks.Count; i++)
+            {
+                if (_currentTracks[i]._Tag == trackdata._Tag)
+                {
+                    _currentTracks[i]._CurrentXcord = trackdata._CurrentXcord;
+                    _currentTracks[i]._CurrentYcord = trackdata._CurrentYcord;
+                    _currentTracks[i]._CurrentZcord = trackdata._CurrentZcord;
+                    _currentTracks[i]._CurrentCourse = trackdata._CurrentCourse;
+                    _currentTracks[i]._CurrentHorzVel = trackdata._CurrentHorzVel;
+                }
+            }
 
             if (_currentTracks.Exists(x => x._Tag == trackdata._Tag) == false)
             {
                 AddTrack(trackdata);
             }
-
+            
         }
 
         public void Update(TrackData trackData)
@@ -77,26 +82,28 @@ namespace ATM
 
         public bool CheckForSeperationEvent(TrackData trackData1, TrackData trackData2)
         {
-            if (Math.Abs(trackData1._CurrentXcord - trackData2._CurrentXcord) < 5000 &&
-                Math.Abs(trackData1._CurrentYcord - trackData2._CurrentYcord) < 5000 &&
-                Math.Abs(trackData1._CurrentZcord - trackData2._CurrentZcord) < 300)
-                return true;
-
+            //Check if both tracks are the same
+            if(trackData1._Tag==trackData2._Tag)
+            {
+                throw new Exception("Provided TrackDatas have the same Tag");
+            }
             else
-                return false;
+            {
+                if (Math.Abs(trackData1._CurrentXcord - trackData2._CurrentXcord) < 5000 &&
+                    Math.Abs(trackData1._CurrentYcord - trackData2._CurrentYcord) < 5000 &&
+                    Math.Abs(trackData1._CurrentZcord - trackData2._CurrentZcord) < 300)
+                    return true;
+
+                else
+                    return false;
+            }
         }
 
-        public IEnumerable<SeperationEvent> GetSeperationEventInvolvedIn(TrackData trackData)
+        public SeperationEvent GetSeperationEventInvolvedIn(TrackData trackData)
         {
+            //To be implemented
 
-            return _currentSeperationEvents.Where(x => x._InvolvedTracks[0]._Tag == trackData._Tag ||
-                                                      x._InvolvedTracks[1]._Tag == trackData._Tag);
-        }
-
-        public void AddSeperationEvent(SeperationEvent seperationEvent)
-        {
-            _currentSeperationEvents.Add(seperationEvent);
-
+            return null;
         }
 
 

@@ -153,7 +153,7 @@ namespace ATM.Unit.Tests
         {
             for (int i=0; i<10;i++)
             {
-                uut.AddTrack(new TrackData("ABC", 10000, 10000, 1000, 100, 10));
+                uut.AddTrack(new TrackData("ABC"+i, 10000, 10000, 1000, 100, 10));
             }
 
             Assert.That(() => uut._currentTracks.Count.Equals(10));
@@ -218,6 +218,90 @@ namespace ATM.Unit.Tests
         }
         #endregion
 
+        #region CheckForSeperationEvent
+        [Test]
+        public void CheckForSeperationEvent_TagsForTheTwoTracksAreTheSame_ThrowsException()
+        {
+            TrackData track1 = new TrackData("ABC", 10000, 10000, 1000, 150, 50);
+
+            string message = "Provided TrackDatas have the same Tag";
+
+            Assert.That(() => uut.CheckForSeperationEvent(track1,track1), Throws.Exception.TypeOf<Exception>().With.Message.EqualTo(message));
+        }
+
+        [Test]
+        public void CheckForSeperationEvent_NoConditionsMet_ReturnsFalse()
+        {
+            TrackData track1 = new TrackData("ABC", 10000, 10000, 1000, 150, 50);
+            TrackData track2 = new TrackData("DEF", 50000, 50000, 5000, 150, 50);
+
+            Assert.That(() => uut.CheckForSeperationEvent(track1, track2).Equals(false));
+        }
+
+        [Test]
+        public void CheckForSeperationEvent_AllConditionsMet_ReturnsTrue()
+        {
+            TrackData track1 = new TrackData("ABC", 30000, 30000, 1000, 150, 50);
+            TrackData track2 = new TrackData("DEF", 30001, 30001, 1001, 150, 50);
+
+            Assert.That(() => uut.CheckForSeperationEvent(track1, track2).Equals(true));
+        }
+
+        [Test]
+        public void CheckForSeperationEvent_OnlyXConditionMet_ReturnsFalse()
+        {
+            TrackData track1 = new TrackData("ABC", 50000-1, 10000, 1000, 150, 50);
+            TrackData track2 = new TrackData("DEF", 50000, 50000, 5000, 150, 50);
+
+            Assert.That(() => uut.CheckForSeperationEvent(track1, track2).Equals(false));
+        }
+
+        [Test]
+        public void CheckForSeperationEvent_OnlyYConditionMet_ReturnsFalse()
+        {
+            TrackData track1 = new TrackData("ABC", 10000, 50000-1, 1000, 150, 50);
+            TrackData track2 = new TrackData("DEF", 50000, 50000, 5000, 150, 50);
+
+            Assert.That(() => uut.CheckForSeperationEvent(track1, track2).Equals(false));
+        }
+
+        [Test]
+        public void CheckForSeperationEvent_OnlyZConditionMet_ReturnsFalse()
+        {
+            TrackData track1 = new TrackData("ABC", 10000, 10000, 5000-1, 150, 50);
+            TrackData track2 = new TrackData("DEF", 50000, 50000, 5000, 150, 50);
+
+            Assert.That(() => uut.CheckForSeperationEvent(track1, track2).Equals(false));
+        }
+
+        [Test]
+        public void CheckForSeperationEvent_XandYConditionsMet_ReturnsFalse()
+        {
+            TrackData track1 = new TrackData("ABC", 50000-1, 50000-1, 1000, 150, 50);
+            TrackData track2 = new TrackData("DEF", 50000, 50000, 5000, 150, 50);
+
+            Assert.That(() => uut.CheckForSeperationEvent(track1, track2).Equals(false));
+        }
+
+        [Test]
+        public void CheckForSeperationEvent_YandZConditionsMet_ReturnsFalse()
+        {
+            TrackData track1 = new TrackData("ABC", 10000, 50000 - 1, 5000-1, 150, 50);
+            TrackData track2 = new TrackData("DEF", 50000, 50000, 5000, 150, 50);
+
+            Assert.That(() => uut.CheckForSeperationEvent(track1, track2).Equals(false));
+        }
+
+
+        [Test]
+        public void CheckForSeperationEvent_XandZConditionsMet_ReturnsFalse()
+        {
+            TrackData track1 = new TrackData("ABC", 50000-1, 10000, 5000 - 1, 150, 50);
+            TrackData track2 = new TrackData("DEF", 50000, 50000, 5000, 150, 50);
+
+            Assert.That(() => uut.CheckForSeperationEvent(track1, track2).Equals(false));
+        }
+        #endregion
 
 
     }

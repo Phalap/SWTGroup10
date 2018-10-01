@@ -16,9 +16,9 @@ namespace ConsoleApplication
             
             DateTime timeOfOccurence = DateTime.Now;
 
-            List<string> involvedTracks = new List<string>();
-            involvedTracks.Add("ABC");
-            involvedTracks.Add("DEF");
+            List<TrackData> involvedTracks = new List<TrackData>();
+            involvedTracks.Add(new TrackData("ABC", 10000, 10000, 1000, 150, 50));
+            involvedTracks.Add(new TrackData("DEF", 10001, 10001, 1001, 150, 50));
 
             SeperationEvent seperationEvent = new SeperationEvent(timeOfOccurence, involvedTracks, true);
 
