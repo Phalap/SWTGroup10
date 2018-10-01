@@ -17,29 +17,36 @@ namespace ATM
         private string seperationEventInactive = "Inactive";
 
 
-        public void LogSeperationEvent(SeperationEvent seperationEvent)
+        public void LogActiveSeparationEvent(SeperationEvent seperationEvent)
         {
             string timeOfOccurence = seperationEvent._OccurrenceTime.ToString();
             TrackData track1 = seperationEvent._InvolvedTracks[0];
             TrackData track2 = seperationEvent._InvolvedTracks[1];
-            bool isRaised = seperationEvent._IsRaised;
 
             //Creating instance of StreamWriter
             System.IO.StreamWriter streamWriter = System.IO.File.AppendText(startupPath + fileName);
 
+            string lineToLog = "Timestamp: " + timeOfOccurence + "  " + "Flight 1: " + track1._Tag + " | " + "Flight 2: " + track2._Tag + " | " + "SeperationEvent status: " + seperationEventActive;
+            //Perhaps it should be WriteLineAsync in order to keep up with the system
+            streamWriter.WriteLine(lineToLog);
 
-            //Creating string for logging and logging the string with relevant information
-            if (isRaised == false)
-            {
-                string lineToLog = "Timestamp: " + timeOfOccurence + "  " + "Flight 1: " + track1._Tag + " | " + "Flight 2: " + track2._Tag + " | " + "SeperationEvent status: " + seperationEventInactive;
-                streamWriter.Write(lineToLog);
-            }
-            else
-            {
-                string lineToLog = "Timestamp: " + timeOfOccurence + "  " + "Flight 1: " + track1._Tag + " | " + "Flight 2: " + track2._Tag + " | " + "SeperationEvent status: " + seperationEventActive;
-                //Perhaps it should be WriteLineAsync in order to keep up with the system
-                streamWriter.WriteLine(lineToLog);
-            }
+            //Closing streamWriter instance and file
+            streamWriter.Close();
+
+        }
+
+        public void LogInactiveSeparationEvent(SeperationEvent seperationEvent)
+        {
+            string timeOfOccurence = seperationEvent._OccurrenceTime.ToString();
+            TrackData track1 = seperationEvent._InvolvedTracks[0];
+            TrackData track2 = seperationEvent._InvolvedTracks[1];
+
+            //Creating instance of StreamWriter
+            System.IO.StreamWriter streamWriter = System.IO.File.AppendText(startupPath + fileName);
+
+            string lineToLog = "Timestamp: " + timeOfOccurence + "  " + "Flight 1: " + track1._Tag + " | " + "Flight 2: " + track2._Tag + " | " + "SeperationEvent status: " + seperationEventInactive;
+            //Perhaps it should be WriteLineAsync in order to keep up with the system
+            streamWriter.Write(lineToLog);
 
             //Closing streamWriter instance and file
             streamWriter.Close();

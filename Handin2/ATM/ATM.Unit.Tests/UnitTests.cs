@@ -135,7 +135,6 @@ namespace ATM.Unit.Tests
 
 
         #region rendering
-
         [Test]
         public void rendering_nothingCalled_MethodHasNotBeenCalled()
         {
@@ -165,7 +164,6 @@ namespace ATM.Unit.Tests
             uut.RenderSeperationEvents();
             Assert.That(() => renderer.RenderSeperationEvent_TimesCalled.Equals(2));
         }
-
 
         #endregion
 
