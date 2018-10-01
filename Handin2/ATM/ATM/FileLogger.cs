@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ATM
 {
-    class FileLogger : ILogger
+    public class FileLogger : ILogger
     {
         //LogFile is created in this projects "\bin" folder
         public static string startupPath = System.IO.Directory.GetCurrentDirectory();

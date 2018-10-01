@@ -8,22 +8,22 @@ using TransponderReceiver;
 
 namespace ATM
 {
-    public class ATM : IObserver
+    public class ATMclass : IObserver
     {
         private ILogger _logger;
         private IRenderer _renderer;
-        private ITransponderReceiver _transponderReceiver;
+        //private ITransponderReceiver _transponderReceiver;
 
         public List<TrackData> _currentTracks { get; }
         public List<SeperationEvent> _currentSeperationEvents { get; }
 
         private IAirspace _airspace;
 
-        public ATM(ILogger logger, IRenderer renderer, ITransponderReceiver transponderReceiver, IAirspace airspace)
+        public ATMclass(ILogger logger, IRenderer renderer, IAirspace airspace)
         {
             _logger = logger;
             _renderer = renderer;
-            _transponderReceiver = transponderReceiver;
+            //_transponderReceiver = transponderReceiver;
             _airspace = airspace;
             _currentSeperationEvents = new List<SeperationEvent>();
             _currentTracks = new List<TrackData>();
@@ -32,16 +32,20 @@ namespace ATM
         public void HandleNewTrackData(TrackData trackdata)
         {
 
-            TrackData trackToEdit = _currentTracks.Find(x => x._Tag == trackdata._Tag);
-            trackToEdit._CurrentXcord = trackdata._CurrentXcord;
-            trackToEdit._CurrentYcord = trackdata._CurrentYcord;
-            trackToEdit._CurrentZcord = trackdata._CurrentZcord;
-            trackToEdit._CurrentCourse = trackdata._CurrentCourse;
-            trackToEdit._CurrentHorzVel = trackToEdit._CurrentHorzVel;
-
             if (_currentTracks.Exists(x => x._Tag == trackdata._Tag) == false)
             {
                 AddTrack(trackdata);
+                RenderTracks();
+            }
+            else
+            {
+                TrackData trackToEdit = _currentTracks.Find(x => x._Tag == trackdata._Tag);
+                trackToEdit._CurrentXcord = trackdata._CurrentXcord;
+                trackToEdit._CurrentYcord = trackdata._CurrentYcord;
+                trackToEdit._CurrentZcord = trackdata._CurrentZcord;
+                trackToEdit._CurrentCourse = trackdata._CurrentCourse;
+                trackToEdit._CurrentHorzVel = trackToEdit._CurrentHorzVel;
+                RenderTracks();
             }
             
         }
@@ -106,6 +110,8 @@ namespace ATM
 
         public void RenderTracks()
         {
+            Console.Clear();
+
             foreach (var trackData in _currentTracks)
             {
                 _renderer.RenderTrack(trackData);

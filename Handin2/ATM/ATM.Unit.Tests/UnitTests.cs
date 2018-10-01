@@ -25,7 +25,7 @@ namespace ATM.Unit.Tests
         List<TrackData> tracks;
         double timestamp;
 
-        ATM uut;
+        ATMclass uut;
 
         [SetUp]
         public void setup()
@@ -39,7 +39,7 @@ namespace ATM.Unit.Tests
             tracks = new List<TrackData>();
             timestamp = 235928121999;
 
-            uut = new ATM(logger, renderer,TransponderReceiver, airspace);
+            uut = new ATMclass(logger, renderer,TransponderReceiver, airspace);
         }
 
         #region logging

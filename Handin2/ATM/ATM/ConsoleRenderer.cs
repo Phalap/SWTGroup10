@@ -27,6 +27,7 @@ namespace ATM
             double course = trackData._CurrentCourse;
 
             Console.WriteLine(Tag + " - " + "(" + x + "," + y + "," + z + ")" + " - " + "Speed: " + horzVel + "m/s - Course: " + course + " degrees.");
+            
         }
 
     }

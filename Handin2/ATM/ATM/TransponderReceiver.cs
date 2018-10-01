@@ -14,8 +14,6 @@ namespace ATM
 
         private List<IObserver> _observers = new List<IObserver>();
 
-
-
         public TransponderReceiver(ITransponderReceiver receiver)
         {
             // This will store the real or the fake transponder data receiver
@@ -27,11 +25,6 @@ namespace ATM
 
         private void ReceiverOnTransponderDataReady(object sender, RawTransponderDataEventArgs e)
         {
-            // Just display data
-            foreach (var data in e.TransponderData)
-            {
-                System.Console.WriteLine($"Transponderdata {data}");
-            }
 
             foreach (var data in e.TransponderData)
             {
