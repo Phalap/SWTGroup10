@@ -68,7 +68,6 @@ namespace ATM
 
         public SeperationEvent GetSeperationEventInvolvedIn(TrackData trackData)
         {
-            //To be implemented
 
             return null;
         }
@@ -79,9 +78,12 @@ namespace ATM
 
         }
 
-        public void RenderTracks(List<TrackData> trackDatas)
+        public void RenderTracks()
         {
-            //To be implemented
+            foreach (var trackData in _currentTracks)
+            {
+                _renderer.RenderTrack(trackData);
+            }
 
         }
 
