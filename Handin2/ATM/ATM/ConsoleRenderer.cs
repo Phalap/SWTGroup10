@@ -11,8 +11,8 @@ namespace ATM
         public void RenderSeperationEvent(SeperationEvent seperationEvent)
         {
             string timeOfOccurence = seperationEvent._OccurrenceTime.ToString();// + seperationEvent.OccurrenceTime.ToLongTimeString();
-            string track1 = seperationEvent._InvolvedTracks[0];
-            string track2 = seperationEvent._InvolvedTracks[1];
+            string track1 = seperationEvent._InvolvedTracks[0]._Tag;
+            string track2 = seperationEvent._InvolvedTracks[1]._Tag;
 
             Console.WriteLine("Warning: Seperation event occurred at " + timeOfOccurence + " - Involved tracks are " + track1 + " and " + track2 +".");
         }
