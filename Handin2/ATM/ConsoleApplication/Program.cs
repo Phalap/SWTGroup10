@@ -9,22 +9,22 @@ namespace ConsoleApplication
 {
     class Program
     {
+        
         static void Main(string[] args)
         {
+            double timestamp = 235928121999;
 
             IRenderer renderer = new ConsoleRenderer();
-            
-            DateTime timeOfOccurence = DateTime.Now;
 
             List<TrackData> involvedTracks = new List<TrackData>();
-            involvedTracks.Add(new TrackData("ABC", 10000, 10000, 1000, 150, 50));
-            involvedTracks.Add(new TrackData("DEF", 10001, 10001, 1001, 150, 50));
+            involvedTracks.Add(new TrackData("ABC", 10000, 10000, 1000, timestamp, 150, 50));
+            involvedTracks.Add(new TrackData("DEF", 10001, 10001, 1001, timestamp, 150, 50));
 
-            SeperationEvent seperationEvent = new SeperationEvent(timeOfOccurence, involvedTracks, true);
+            SeperationEvent seperationEvent = new SeperationEvent(timestamp, involvedTracks, true);
 
             renderer.RenderSeperationEvent(seperationEvent);
 
-            TrackData trackData = new TrackData("XYZ", 100, 200, 300, 10, 270);
+            TrackData trackData = new TrackData("XYZ", 100, 200, 300, timestamp, 10, 270);
             
             
 
