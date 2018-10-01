@@ -59,13 +59,7 @@ namespace ATM.Unit.Tests
         {
             TrackData trackData1 = new TrackData("ABC", 10000, 20000, 3000, timestamp, 100, 10);
             TrackData trackData2 = new TrackData("DEF", 10000, 20000, 3000, timestamp, 100, 10);
-            List<TrackData> trackDatas = new List<TrackData>
-            {
-                trackData1,
-                trackData2
-            };
-            SeperationEvent seperationEvent = new SeperationEvent(timestamp, trackDatas, true);
-
+          
             uut.CheckForSeperationEvent(trackData1,trackData2);
             Assert.That(logger.LogActiveSeparationEvent_timesCalled.Equals(1));
         }
@@ -98,7 +92,7 @@ namespace ATM.Unit.Tests
             };
             SeperationEvent seperationEvent = new SeperationEvent(timestamp, trackDatas, true);
 
-            //uut.LogActiveSeparationEvent(seperationEvent);
+            uut.CheckForSeperationEvent(trackData1, trackData2);
             Assert.That(logger.ParametersList[0]._InvolvedTracks[1]._Tag.Equals(seperationEvent._InvolvedTracks[1]._Tag));
         }
 
@@ -114,7 +108,7 @@ namespace ATM.Unit.Tests
             };
             SeperationEvent seperationEvent = new SeperationEvent(timestamp, trackDatas, true);
 
-            //uut.LogActiveSeparationEvent(seperationEvent);
+            uut.CheckForSeperationEvent(trackData1, trackData2);
             Assert.That(logger.ParametersList[0]._OccurrenceTime.Equals(seperationEvent._OccurrenceTime));
         }
 
@@ -130,14 +124,14 @@ namespace ATM.Unit.Tests
             };
             SeperationEvent seperationEvent = new SeperationEvent(timestamp, trackDatas, true);
 
-            //uut.LogActiveSeparationEvent(seperationEvent);
+            uut.CheckForSeperationEvent(trackData1, trackData2);
             Assert.That(logger.ParametersList[0]._IsRaised.Equals(seperationEvent._IsRaised));
         }
 
         #endregion
 
 
-
+        //Inactive mangler at blive lavet
         #region InActiveSeparationEvent logging
 
         [Test]
@@ -158,7 +152,10 @@ namespace ATM.Unit.Tests
             };
             SeperationEvent seperationEvent = new SeperationEvent(timestamp, trackDatas, true);
 
-            //uut.
+            uut.CheckForSeperationEvent(trackData1, trackData2);
+
+
+            uut.RemoveSeparationEvents();
             Assert.That(logger.LogInactiveSeparationEvent_timesCalled.Equals(1));
         }
 
