@@ -79,15 +79,20 @@ namespace ATM
 
         }
 
-        public void RenderSeperationEvents(List<SeperationEvent> seperationEvents)
+        public void RenderSeperationEvents()
         {
-            
+            foreach (var seperationEvent in _currentSeperationEvents)
+            {
+                _renderer.RenderSeperationEvent(seperationEvent);
+            }
         }
 
-        public void RenderTracks(List<TrackData> trackDatas)
+        public void RenderTracks()
         {
-            //To be implemented
-
+            foreach (var trackData in _currentTracks)
+            {
+                _renderer.RenderTrack(trackData);
+            }
         }
 
         public void LogSeperationEvent(SeperationEvent seperationEvent)
