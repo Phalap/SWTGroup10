@@ -34,8 +34,13 @@ namespace ATM
 
             if (_currentTracks.Exists(x => x._Tag == trackdata._Tag) == false)
             {
+
                 // Add the new track 
-                AddTrack(trackdata);
+                if (_airspace.CheckIfInMonitoredArea(trackdata._CurrentXcord, trackdata._CurrentYcord,
+                    trackdata._CurrentZcord))
+                {
+                    AddTrack(trackdata);
+                }
 
                 // Check for potential seperation events 
                 CheckForSeperationEvents(trackdata);
@@ -58,6 +63,19 @@ namespace ATM
                 trackToEdit._CurrentZcord = trackdata._CurrentZcord;
                 trackToEdit._CurrentCourse = trackdata._CurrentCourse;
                 trackToEdit._CurrentHorzVel = trackToEdit._CurrentHorzVel;
+
+                // Remove tracks if out of airspace
+
+                if (_airspace.CheckIfInMonitoredArea(trackToEdit._CurrentXcord, trackToEdit._CurrentYcord,
+                    trackToEdit._CurrentZcord))
+                {
+
+                }
+                else
+                {
+                    RemoveTrack(trackToEdit._Tag);
+                }
+                     
 
                 // Check for potential seperation events
                 CheckForSeperationEvents(trackToEdit);
@@ -120,9 +138,9 @@ namespace ATM
             }
             else
             {
-                if (Math.Abs(trackData1._CurrentXcord - trackData2._CurrentXcord) < 5000 &&
-                    Math.Abs(trackData1._CurrentYcord - trackData2._CurrentYcord) < 5000 &&
-                    Math.Abs(trackData1._CurrentZcord - trackData2._CurrentZcord) < 300)
+                if (Math.Abs(trackData1._CurrentXcord - trackData2._CurrentXcord) < 500 &&
+                    Math.Abs(trackData1._CurrentYcord - trackData2._CurrentYcord) < 500 &&
+                    Math.Abs(trackData1._CurrentZcord - trackData2._CurrentZcord) < 50000)
                 {
                     // Check if separation event already exists
                     if (GetSeperationEventInvolvedIn(trackData1, trackData2))
@@ -174,6 +192,7 @@ namespace ATM
             {
                 _renderer.RenderSeperationEvent(seperationEvent);
             }
+            Console.WriteLine(_currentSeperationEvents.Count);
         }
 
         public void RenderTracks()
