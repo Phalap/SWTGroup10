@@ -31,6 +31,7 @@ namespace ATM.Unit.Tests
     class FakeLogger : ILogger
     {
         public int LogSeperationEvent_timesCalled { get; set; }
+        public SeperationEvent parameters { get; set; }
 
         public FakeLogger()
         {
