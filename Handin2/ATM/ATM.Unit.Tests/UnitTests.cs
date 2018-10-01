@@ -135,8 +135,9 @@ namespace ATM.Unit.Tests
 
 
         #region rendering
+        #region renderSeperationEvent
         [Test]
-        public void rendering_nothingCalled_MethodHasNotBeenCalled()
+        public void rendering_nothingCalled_RenderSeperationEventHasNotBeenCalled()
         {
             Assert.That(() => renderer.RenderSeperationEvent_TimesCalled.Equals(0));
         }
@@ -164,6 +165,29 @@ namespace ATM.Unit.Tests
             Assert.That(() => renderer.RenderSeperationEvent_TimesCalled.Equals(2));
         }
 
+        #endregion
+
+        #region renderTrack
+        [Test]
+        public void rendering_nothingCalled_RenderTrackHasNotBeenCalled()
+        {
+            Assert.That(() => renderer.RenderTrackData_TimesCalled.Equals(0));
+        }
+
+        [Test]
+        public void rendering_RenderTracksCalledWithNoTracksInList_RenderTrackHasNotBeenCalled()
+        {
+            Assert.That(() => renderer.RenderTrackData_TimesCalled.Equals(0));
+        }
+
+        [Test]
+        public void rendering_RenderTracksCalledWith2TracksInList_RenderTrackHasNotCalled2Times()
+        {
+            uut._currentTracks.Add(new TrackData("ABC", 1, 2, 3, "time", 1, 2));
+            uut._currentTracks.Add(new TrackData("DEF", 1, 2, 3, "time", 1, 2));
+            Assert.That(() => renderer.RenderTrackData_TimesCalled.Equals(1));
+        }
+        #endregion
         #endregion
 
         #region airspace
