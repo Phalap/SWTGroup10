@@ -36,7 +36,7 @@ namespace ATM
             }
             else
             {
-                string lineToLog = "Timestamp: " + timeOfOccurence + "  " + "Flight 1: " + track1 + " | " + "Flight 2: " + track2 + " | " + "SeperationEvent status: " + seperationEventRaised;
+                string lineToLog = "Timestamp: " + timeOfOccurence + "  " + "Flight 1: " + track1._Tag + " | " + "Flight 2: " + track2._Tag + " | " + "SeperationEvent status: " + seperationEventRaised;
                 //Perhaps it should be WriteLineAsync in order to keep up with the system
                 streamWriter.WriteLine(lineToLog);
             }
