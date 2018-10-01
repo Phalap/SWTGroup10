@@ -14,8 +14,8 @@ namespace ATM
         private IRenderer _renderer;
         private ITransponderReceiver _transponderReceiver;
 
-        private List<TrackData> _currentTracks;
-        private List<SeperationEvent> _currentSeperationEvents;
+        public List<TrackData> _currentTracks { get; }
+        public List<SeperationEvent> _currentSeperationEvents { get; }
 
         private IAirspace _airspace;
 
@@ -25,7 +25,8 @@ namespace ATM
             _renderer = renderer;
             _transponderReceiver = transponderReceiver;
             _airspace = airspace;
-
+            _currentSeperationEvents = new List<SeperationEvent>();
+            _currentTracks = new List<TrackData>();
         }
 
         public void HandleNewTrackData(TrackData trackdata)
@@ -40,7 +41,7 @@ namespace ATM
 
             if (_currentTracks.Exists(x => x._Tag == trackdata._Tag) == false)
             {
-                AddFlight(trackdata);
+                AddTrack(trackdata);
             }
 
         }
@@ -50,9 +51,28 @@ namespace ATM
             //Denne funktion er ikke nødvendig efter min menning, da det er nemmere at opdatere direkte i for-loopet i HandleNewTrackData.
         }
 
-        public void AddFlight(TrackData trackData)
+        public void AddTrack(TrackData trackData)
         {
-            _currentTracks.Add(trackData);
+            //Check if TrackData with given tag already exists.
+            if(_currentTracks.Exists(x => x._Tag == trackData._Tag))
+            {
+                //Find index of existing data.
+                int index = _currentTracks.FindIndex(x => x._Tag == trackData._Tag);
+                //replace existing data with new data.
+                _currentTracks[index] = trackData;
+            }
+            else
+            {
+                //Add trackData.
+                _currentTracks.Add(trackData);
+            }
+            
+        }
+
+        public void RemoveTrack(string tag)
+        {
+            int index = _currentTracks.FindIndex(x => x._Tag.Equals(tag));
+            _currentTracks.RemoveAt(index);
         }
 
         public bool CheckForSeperationEvent(TrackData trackData1, TrackData trackData2)
@@ -79,7 +99,14 @@ namespace ATM
 
         }
 
+<<<<<<< HEAD
         public void RenderSeperationEvents()
+=======
+<<<<<<< HEAD
+        public void RenderTracks()
+=======
+        public void RenderSeperationEvents(List<SeperationEvent> seperationEvents)
+>>>>>>> 30a8fc3ce3bda011d6096d29b4b9ac224198e593
         {
             foreach (var seperationEvent in _currentSeperationEvents)
             {
@@ -87,12 +114,21 @@ namespace ATM
             }
         }
 
+<<<<<<< HEAD
         public void RenderTracks()
+=======
+        public void RenderTracks(List<TrackData> trackDatas)
+>>>>>>> 4438cb01ad24a71da2f46b92bd4c1250f4ffd75d
+>>>>>>> 30a8fc3ce3bda011d6096d29b4b9ac224198e593
         {
             foreach (var trackData in _currentTracks)
             {
                 _renderer.RenderTrack(trackData);
             }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 30a8fc3ce3bda011d6096d29b4b9ac224198e593
         }
 
         public void LogSeperationEvent(SeperationEvent seperationEvent)
