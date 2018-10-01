@@ -16,6 +16,7 @@ namespace ConsoleApplication
         
         static void Main(string[] args)
         {
+            // MATHIAS TEST
             /*
             double timestamp = 235928121999;
 
@@ -31,13 +32,12 @@ namespace ConsoleApplication
 
             TrackData trackData = new TrackData("XYZ", 100, 200, 300, timestamp, 10, 270);
             
-            
-
             renderer.RenderTrack(trackData);
 
             Console.ReadLine();
             */
 
+            // TEST AF SYSTEM UDEN SEPARATION EVENT
             FileLogger filelogger = new FileLogger();
             ConsoleRenderer consolerender = new ConsoleRenderer();
             Airspace airspace = new Airspace(10000, 90000, 10000, 90000, 500, 20000);
@@ -45,18 +45,19 @@ namespace ConsoleApplication
             var receiver = TransponderReceiverFactory.CreateTransponderDataReceiver();
             var system = new ATM.TransponderReceiver(receiver);
 
-
             ATMclass atm = new ATMclass(filelogger, consolerender, airspace);
             system.Attach(atm);
 
-            TrackData trackData1 = new TrackData("TEST1", 12000, 12000, 1000, 14322018, 10, 270);
-            TrackData trackData2 = new TrackData("TEST2", 12000, 12000, 1000, 14322018, 10, 270);
-
+            // TEST AF SYSTEM MED SEPARATION EVENTS
+            TrackData trackData1 = new TrackData("TEST1", 12000, 12000, 1000, "14322018", 10, 270);
+            TrackData trackData2 = new TrackData("TEST2", 12000, 12000, 1000, "14322018", 10, 270);
+  
             atm._currentTracks.Add(trackData1);
 
             atm.CheckForSeperationEvents(trackData2);
             atm.CheckForSeperationEvents(trackData2);
 
+            // TEST AF SYSTEM MED LOGGER
 
             while (true)
                 Thread.Sleep(1000);

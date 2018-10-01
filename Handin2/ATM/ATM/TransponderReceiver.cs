@@ -31,7 +31,7 @@ namespace ATM
                 List<string> TrackList = data.Split(';').ToList<string>();
 
                 TrackData t = new TrackData(TrackList[0], double.Parse(TrackList[1]), double.Parse(TrackList[2]),
-                    double.Parse(TrackList[3]), double.Parse(TrackList[4]), 0, 0);
+                    double.Parse(TrackList[3]), TrackList[4], 0, 0);
 
                 foreach (IObserver observer in _observers)
                 {

@@ -23,7 +23,7 @@ namespace ATM.Unit.Tests
         ITransponderReceiver TransponderReceiver;
         List<SeperationEvent> seperationEvents;
         List<TrackData> tracks;
-        double timestamp;
+        string timestamp;
 
         ATMclass uut;
 
@@ -37,7 +37,7 @@ namespace ATM.Unit.Tests
             //Make new fake TransponderReceiver.
             seperationEvents = new List<SeperationEvent>();
             tracks = new List<TrackData>();
-            timestamp = 235928121999;
+            timestamp = "235928121999";
 
             uut = new ATMclass(logger, renderer, airspace);
         }

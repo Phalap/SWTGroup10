@@ -9,11 +9,11 @@ namespace ATM
     public class TrackData
     {
 
-        private string _tag;
-        private double _currentXcord, _currentYcord, _currentZcord, _timeStamp, _currentHorzVel, _currentCourse;
+        private string _tag, _timeStamp;
+        private double _currentXcord, _currentYcord, _currentZcord, _currentHorzVel, _currentCourse;
 
         public TrackData(string tag, double currentXcord, double currentYcord, double currentZcord, 
-                         double timeStamp, double currentHorzVel, double currentCourse)
+                         string timeStamp, double currentHorzVel, double currentCourse)
         {
             _tag = tag;
             _currentXcord = currentXcord;
@@ -28,7 +28,7 @@ namespace ATM
         public double _CurrentXcord { get { return _currentXcord; } set { _currentXcord = value; } }
         public double _CurrentYcord { get { return _currentYcord; } set { _currentYcord = value; } }
         public double _CurrentZcord { get { return _currentZcord; } set { _currentZcord = value; } }
-        public double _TimeStamp { get { return _timeStamp; } set { _timeStamp = value; } }
+        public string _TimeStamp { get { return _timeStamp; } set { _timeStamp = value; } }
         public double _CurrentHorzVel { get { return _currentHorzVel; } set { _currentHorzVel = value; } }
         public double _CurrentCourse { get { return _currentCourse; } set { _currentCourse = value; } }
 
