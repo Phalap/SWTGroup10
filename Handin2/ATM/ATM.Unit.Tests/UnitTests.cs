@@ -46,7 +46,20 @@ namespace ATM.Unit.Tests
         [Test]
         public void logging_logSeperationEvent_MethodHasBeenCalled()
         {
+            TrackData trackData1 = new TrackData("ABC", 10000, 20000, 3000, timestamp, 100, 10);
+            TrackData trackData2 = new TrackData("DEF", 10000, 20000, 3000, timestamp, 100, 10);
+            List<TrackData> trackDatas = new List<TrackData>
+            {
+                trackData1,
+                trackData2
+            };
+            SeperationEvent seperationEvent = new SeperationEvent(timestamp, trackDatas, true);
+        }
 
+        public void logging_logSeperationEvent_MethodHasBeenCalledAndTagIsSame()
+        {
+            TrackData trackData1 = new TrackData("ABC", 10000, 20000, 3000, timestamp, 100, 10);
+            TrackData trackData2 = new TrackData("DEF", 10000, 20000, 3000, timestamp, 100, 10);
         }
         #endregion
 
