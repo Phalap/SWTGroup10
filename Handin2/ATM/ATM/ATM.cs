@@ -8,7 +8,7 @@ using TransponderReceiver;
 
 namespace ATM
 {
-    public class ATM
+    public class ATM : IObserver
     {
         private ILogger _logger;
         private IRenderer _renderer;
@@ -49,11 +49,6 @@ namespace ATM
                 AddTrack(trackdata);
             }
             
-        }
-
-        public void Update(TrackData trackData)
-        {
-            //Denne funktion er ikke nødvendig efter min menning, da det er nemmere at opdatere direkte i for-loopet i HandleNewTrackData.
         }
 
         public void AddTrack(TrackData trackData)
@@ -142,10 +137,10 @@ namespace ATM
 
         }
 
-
-
-
-
-
+        public void Update(TrackData trackdata)
+        {
+            HandleNewTrackData(trackdata);
+        }
+        
     }
 }
