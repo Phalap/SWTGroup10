@@ -10,14 +10,16 @@ namespace ATM
     {
 
         private string _tag;
-        private double _currentXcord, _currentYcord, _currentZcord, _currentHorzVel, _currentCourse;
+        private double _currentXcord, _currentYcord, _currentZcord, _timeStamp, _currentHorzVel, _currentCourse;
 
-        public TrackData(string tag, double currentXcord, double currentYcord, double currentZcord, double currentHorzVel, double currentCourse)
+        public TrackData(string tag, double currentXcord, double currentYcord, double currentZcord, 
+                         double timeStamp, double currentHorzVel, double currentCourse)
         {
             _tag = tag;
             _currentXcord = currentXcord;
             _currentYcord = currentYcord;
             _currentZcord = currentZcord;
+            _timeStamp = timeStamp;
             _currentHorzVel = currentHorzVel;
             _currentCourse = currentCourse;
         }
