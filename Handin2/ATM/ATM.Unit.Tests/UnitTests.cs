@@ -148,7 +148,6 @@ namespace ATM.Unit.Tests
             Assert.That(() => renderer.RenderSeperationEvent_TimesCalled.Equals(0));
         }
 
-
         [Test]
         public void rendering_RenderSeperationEventCalledWith2EventsInList_MethodHasBeenCalled2Times()
         {
