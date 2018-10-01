@@ -18,6 +18,7 @@ namespace ATM.Unit.Tests
         double zMin = 500;
         double zMax = 20000;
         Airspace airspace;
+        FakeAirspace fakeAirspace;
         FakeLogger logger;
         FakeRenderer renderer;
         ITransponderReceiver TransponderReceiver;
@@ -32,6 +33,7 @@ namespace ATM.Unit.Tests
         {
             //Setup stuff
             airspace = new Airspace(xMin, xMax, yMin, yMax, zMin, zMax);
+            fakeAirspace = new FakeAirspace(xMin, xMax, yMin, yMax, zMin, zMax);
             logger = new FakeLogger();
             renderer = new FakeRenderer();
             //Make new fake TransponderReceiver.
@@ -39,7 +41,7 @@ namespace ATM.Unit.Tests
             tracks = new List<TrackData>();
             timestamp = "235928121999";
 
-            uut = new ATMclass(logger, renderer, airspace);
+            uut = new ATMclass(logger, renderer, fakeAirspace);
         }
 
         #region logging
@@ -131,8 +133,6 @@ namespace ATM.Unit.Tests
         }
 
         #endregion
-
-
 
         #region rendering
         #region renderSeperationEvent
@@ -277,6 +277,8 @@ namespace ATM.Unit.Tests
         }
         #endregion
         #endregion
+
+        
 
         #region AddTrack
         [Test]
