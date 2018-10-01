@@ -17,7 +17,7 @@ namespace ATM.Unit.Tests
         double yMax = 90000;
         double zMin = 500;
         double zMax = 20000;
-        IAirspace airspace;
+        Airspace airspace;
         FakeLogger logger;
         IRenderer renderer;
         ITransponderReceiver TransponderReceiver;
@@ -31,7 +31,7 @@ namespace ATM.Unit.Tests
         public void setup()
         {
             //Setup stuff
-            airspace = new FakeAirspace(xMin, xMax, yMin, yMax, zMin, zMax);
+            airspace = new Airspace(xMin, xMax, yMin, yMax, zMin, zMax);
             logger = new FakeLogger();
             renderer = new FakeRenderer();
             //Make new fake TransponderReceiver.
@@ -39,7 +39,7 @@ namespace ATM.Unit.Tests
             tracks = new List<TrackData>();
             timestamp = 235928121999;
 
-            uut = new ATMclass(logger, renderer,TransponderReceiver, airspace);
+            uut = new ATMclass(logger, renderer, airspace);
         }
 
         #region logging
