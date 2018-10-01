@@ -42,7 +42,7 @@ namespace ATM
             {
                 AddFlight(trackdata);
             }
-            
+
         }
 
         public void Update(TrackData trackData)
@@ -66,17 +66,22 @@ namespace ATM
                 return false;
         }
 
-        public SeperationEvent GetSeperationEventInvolvedIn(TrackData trackData)
+        public IEnumerable<SeperationEvent> GetSeperationEventInvolvedIn(TrackData trackData)
         {
-            //To be implemented
 
-            return null;
+            return _currentSeperationEvents.Where(x => x._InvolvedTracks[0]._Tag == trackData._Tag ||
+                                                      x._InvolvedTracks[1]._Tag == trackData._Tag);
+        }
+
+        public void AddSeperationEvent(SeperationEvent seperationEvent)
+        {
+            _currentSeperationEvents.Add(seperationEvent);
+
         }
 
         public void RenderSeperationEvents(List<SeperationEvent> seperationEvents)
         {
-            //To be implemented
-
+            
         }
 
         public void RenderTracks(List<TrackData> trackDatas)
