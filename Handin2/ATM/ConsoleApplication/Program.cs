@@ -49,6 +49,15 @@ namespace ConsoleApplication
             ATMclass atm = new ATMclass(filelogger, consolerender, airspace);
             system.Attach(atm);
 
+            TrackData trackData1 = new TrackData("TEST1", 12000, 12000, 1000, 14322018, 10, 270);
+            TrackData trackData2 = new TrackData("TEST2", 12000, 12000, 1000, 14322018, 10, 270);
+
+            atm._currentTracks.Add(trackData1);
+
+            atm.CheckForSeperationEvents(trackData2);
+            atm.CheckForSeperationEvents(trackData2);
+
+
             while (true)
                 Thread.Sleep(1000);
         }

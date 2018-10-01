@@ -34,18 +34,39 @@ namespace ATM
 
             if (_currentTracks.Exists(x => x._Tag == trackdata._Tag) == false)
             {
+                // Add the new track 
                 AddTrack(trackdata);
+
+                // Check for potential seperation events 
+                CheckForSeperationEvents(trackdata);
+
+                // Check if new track already is involved in separation event 
+
+
+                // Render trackdata to console 
                 RenderTracks();
+
+                // Render seperationevents
+                RenderSeperationEvents();
             }
             else
             {
+                // Update trackdata
                 TrackData trackToEdit = _currentTracks.Find(x => x._Tag == trackdata._Tag);
                 trackToEdit._CurrentXcord = trackdata._CurrentXcord;
                 trackToEdit._CurrentYcord = trackdata._CurrentYcord;
                 trackToEdit._CurrentZcord = trackdata._CurrentZcord;
                 trackToEdit._CurrentCourse = trackdata._CurrentCourse;
                 trackToEdit._CurrentHorzVel = trackToEdit._CurrentHorzVel;
+
+                // Check for potential seperation events
+                CheckForSeperationEvents(trackToEdit);
+
+                // Render updated tracks to console 
                 RenderTracks();
+
+                // Render seperation events
+                RenderSeperationEvents();
             }
             
         }
@@ -74,6 +95,19 @@ namespace ATM
             _currentTracks.RemoveAt(index);
         }
 
+        public void CheckForSeperationEvents(TrackData trackData)
+        {
+            foreach (var track in _currentTracks)
+            {
+                if (track._Tag == trackData._Tag)
+                {
+
+                }
+                else
+                    CheckForSeperationEvent(trackData, track);
+            }
+        }
+
         public bool CheckForSeperationEvent(TrackData trackData1, TrackData trackData2)
         {
             //Check if both tracks are the same
@@ -86,17 +120,47 @@ namespace ATM
                 if (Math.Abs(trackData1._CurrentXcord - trackData2._CurrentXcord) < 5000 &&
                     Math.Abs(trackData1._CurrentYcord - trackData2._CurrentYcord) < 5000 &&
                     Math.Abs(trackData1._CurrentZcord - trackData2._CurrentZcord) < 300)
-                    return true;
+                {
+                    // Check if separation event already exists
+                    if (GetSeperationEventInvolvedIn(trackData1, trackData2))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        // Add new separation event 
+                        string time = DateTime.Now.ToString();
+                        List<TrackData> trackDataInSeperationEvent = new List<TrackData>();
+                        trackDataInSeperationEvent.Add(trackData1);
+                        trackDataInSeperationEvent.Add(trackData2);
+
+                        SeperationEvent SeperationEvent = new SeperationEvent(time, trackDataInSeperationEvent, true);
+                        _currentSeperationEvents.Add(SeperationEvent);
+                        return true;
+                    }
+
+                }
 
                 else
                     return false;
             }
         }
 
-        public IEnumerable<SeperationEvent> GetSeperationEventInvolvedIn(TrackData trackData)
+        public bool GetSeperationEventInvolvedIn(TrackData trackData1, TrackData trackData2)
         {
-            return _currentSeperationEvents.Where(x => x._InvolvedTracks[0]._Tag == trackData._Tag ||
-                                                       x._InvolvedTracks[1]._Tag == trackData._Tag);
+
+            if(_currentSeperationEvents.Exists(x => x._InvolvedTracks[0]._Tag == trackData1._Tag &&
+                                                    x._InvolvedTracks[1]._Tag == trackData2._Tag) || 
+               _currentSeperationEvents.Exists(x => x._InvolvedTracks[1]._Tag == trackData1._Tag &&
+                                                    x._InvolvedTracks[0]._Tag == trackData2._Tag))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+                                                                                                                                          
         }
 
 
