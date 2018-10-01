@@ -208,6 +208,7 @@ namespace ATM
 
         public void RemoveSeparationEvents()
         {
+            //Log if conditions for seperation event are no longer met.
             foreach (var separationEvent in _currentSeperationEvents)
             {
                 if (Math.Abs(separationEvent._InvolvedTracks[0]._CurrentXcord -
@@ -221,10 +222,17 @@ namespace ATM
                 }
                 else
                 {
-                    _currentSeperationEvents.Remove(separationEvent);
                     _logger.LogInactiveSeparationEvent(separationEvent);
                 }
             }
+
+            //After logging, remove the given elements.
+            _currentSeperationEvents.RemoveAll(x => Math.Abs(x._InvolvedTracks[0]._CurrentXcord -
+                             x._InvolvedTracks[1]._CurrentXcord) < 5000 &&
+                    Math.Abs(x._InvolvedTracks[0]._CurrentYcord -
+                             x._InvolvedTracks[1]._CurrentYcord) < 5000 &&
+                    Math.Abs(x._InvolvedTracks[0]._CurrentZcord -
+                             x._InvolvedTracks[1]._CurrentZcord) < 300);
         }
 
         public void Update(TrackData trackdata)

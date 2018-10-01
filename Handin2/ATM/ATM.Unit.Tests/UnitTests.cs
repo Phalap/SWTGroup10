@@ -143,8 +143,10 @@ namespace ATM.Unit.Tests
         [Test]
         public void inactive_logging_logInactiveSeparationEvent_MethodHasBeenCalled()
         {
-            TrackData trackData1 = new TrackData("ABC", 10000, 20000, 3000, timestamp, 100, 10);
-            TrackData trackData2 = new TrackData("DEF", 10000, 20000, 3000, timestamp, 100, 10);
+            //Set up seperation event, that when checked, should be removed, 
+            //since the conditions for a seperation event no longer are true.
+            TrackData trackData1 = new TrackData("ABC", 10000, 10000, 1000, timestamp, 100, 10);
+            TrackData trackData2 = new TrackData("DEF", 20000, 20000, 3000, timestamp, 100, 10);
             List<TrackData> trackDatas = new List<TrackData>
             {
                 trackData1,
@@ -152,8 +154,7 @@ namespace ATM.Unit.Tests
             };
             SeperationEvent seperationEvent = new SeperationEvent(timestamp, trackDatas, true);
 
-            uut.CheckForSeperationEvent(trackData1, trackData2);
-
+            uut._currentSeperationEvents.Add(seperationEvent);
 
             uut.RemoveSeparationEvents();
             Assert.That(logger.LogInactiveSeparationEvent_timesCalled.Equals(1));
