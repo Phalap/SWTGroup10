@@ -8,7 +8,7 @@ using TransponderReceiver;
 
 namespace ATM
 {
-    public class ATM
+    public class ATM : IObserver
     {
         private ILogger _logger;
         private IRenderer _renderer;
@@ -32,28 +32,18 @@ namespace ATM
         public void HandleNewTrackData(TrackData trackdata)
         {
 
-            for (int i = 0; i < _currentTracks.Count; i++)
-            {
-                if (_currentTracks[i]._Tag == trackdata._Tag)
-                {
-                    _currentTracks[i]._CurrentXcord = trackdata._CurrentXcord;
-                    _currentTracks[i]._CurrentYcord = trackdata._CurrentYcord;
-                    _currentTracks[i]._CurrentZcord = trackdata._CurrentZcord;
-                    _currentTracks[i]._CurrentCourse = trackdata._CurrentCourse;
-                    _currentTracks[i]._CurrentHorzVel = trackdata._CurrentHorzVel;
-                }
-            }
+            TrackData trackToEdit = _currentTracks.Find(x => x._Tag == trackdata._Tag);
+            trackToEdit._CurrentXcord = trackdata._CurrentXcord;
+            trackToEdit._CurrentYcord = trackdata._CurrentYcord;
+            trackToEdit._CurrentZcord = trackdata._CurrentZcord;
+            trackToEdit._CurrentCourse = trackdata._CurrentCourse;
+            trackToEdit._CurrentHorzVel = trackToEdit._CurrentHorzVel;
 
             if (_currentTracks.Exists(x => x._Tag == trackdata._Tag) == false)
             {
                 AddTrack(trackdata);
             }
             
-        }
-
-        public void Update(TrackData trackData)
-        {
-            //Denne funktion er ikke nødvendig efter min menning, da det er nemmere at opdatere direkte i for-loopet i HandleNewTrackData.
         }
 
         public void AddTrack(TrackData trackData)
@@ -99,15 +89,14 @@ namespace ATM
             }
         }
 
-        public SeperationEvent GetSeperationEventInvolvedIn(TrackData trackData)
+        public IEnumerable<SeperationEvent> GetSeperationEventInvolvedIn(TrackData trackData)
         {
-            //To be implemented
-
-            return null;
+            return _currentSeperationEvents.Where(x => x._InvolvedTracks[0]._Tag == trackData._Tag ||
+                                                       x._InvolvedTracks[1]._Tag == trackData._Tag);
         }
 
 
-        public void RenderSeperationEvents(List<SeperationEvent> seperationEvents)
+        public void RenderSeperationEvents()
         {
             foreach (var seperationEvent in _currentSeperationEvents)
             {
@@ -115,7 +104,7 @@ namespace ATM
             }
         }
 
-        public void RenderTracks(List<TrackData> trackDatas)
+        public void RenderTracks()
         {
             foreach (var trackData in _currentTracks)
             {
@@ -141,10 +130,10 @@ namespace ATM
 
         }
 
-
-
-
-
-
+        public void Update(TrackData trackdata)
+        {
+            HandleNewTrackData(trackdata);
+        }
+        
     }
 }
