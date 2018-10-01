@@ -20,8 +20,8 @@ namespace ATM
         public void LogSeperationEvent(SeperationEvent seperationEvent)
         {
             string timeOfOccurence = seperationEvent._OccurrenceTime.ToString();
-            string track1 = seperationEvent._InvolvedTracks[0];
-            string track2 = seperationEvent._InvolvedTracks[1];
+            TrackData track1 = seperationEvent._InvolvedTracks[0];
+            TrackData track2 = seperationEvent._InvolvedTracks[1];
             bool isRaised = seperationEvent._IsRaised;
 
             //Creating instance of StreamWriter
@@ -31,7 +31,7 @@ namespace ATM
             //Creating string for logging and logging the string with relevant information
             if (isRaised == false)
             {
-                string lineToLog = "Timestamp: " + timeOfOccurence + "  " + "Flight 1: " + track1 + " | " + "Flight 2: " + track2 + " | " + "SeperationEvent status: " + seperationEventDiscontinued;
+                string lineToLog = "Timestamp: " + timeOfOccurence + "  " + "Flight 1: " + track1._Tag + " | " + "Flight 2: " + track2._Tag + " | " + "SeperationEvent status: " + seperationEventDiscontinued;
                 streamWriter.Write(lineToLog);
             }
             else

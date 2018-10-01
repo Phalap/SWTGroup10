@@ -23,6 +23,7 @@ namespace ATM.Unit.Tests
         ITransponderReceiver TransponderReceiver;
         List<SeperationEvent> seperationEvents;
         List<TrackData> tracks;
+        double timestamp;
 
         ATM uut;
 
@@ -36,11 +37,17 @@ namespace ATM.Unit.Tests
             //Make new fake TransponderReceiver.
             seperationEvents = new List<SeperationEvent>();
             tracks = new List<TrackData>();
+            timestamp = 235928121999;
 
             uut = new ATM(logger, renderer,TransponderReceiver, airspace);
         }
 
         #region logging
+        [Test]
+        public void logging_logSeperationEvent_MethodHasBeenCalled()
+        {
+
+        }
         #endregion
 
         #region rendering
@@ -144,7 +151,7 @@ namespace ATM.Unit.Tests
         [Test]
         public void AddTrack_TrackAdded_CountIs1()
         {
-            uut.AddTrack(new TrackData("ABC", 10000, 10000, 1000, 100, 10));
+            uut.AddTrack(new TrackData("ABC", 10000, 10000, 1000, timestamp, 100, 10));
             Assert.That(() => uut._currentTracks.Count.Equals(1));
         }
 
@@ -153,7 +160,7 @@ namespace ATM.Unit.Tests
         {
             for (int i=0; i<10;i++)
             {
-                uut.AddTrack(new TrackData("ABC"+i, 10000, 10000, 1000, 100, 10));
+                uut.AddTrack(new TrackData("ABC"+i, 10000, 10000, 1000, timestamp, 100, 10));
             }
 
             Assert.That(() => uut._currentTracks.Count.Equals(10));
@@ -162,7 +169,7 @@ namespace ATM.Unit.Tests
         [Test]
         public void AddTrack_TrackAdded_TagInFirstListObjectMatchesTagOfAddedTrack()
         {
-            TrackData testTrack = new TrackData("ABC", 10000, 10000, 1000, 100, 10);
+            TrackData testTrack = new TrackData("ABC", 10000, 10000, 1000, timestamp, 100, 10);
             uut.AddTrack(testTrack);
             Assert.That(() => uut._currentTracks[0]._Tag.Equals(testTrack._Tag));
         }
@@ -170,8 +177,8 @@ namespace ATM.Unit.Tests
         [Test]
         public void AddTrack_AddTrackThenAddTrackWithSameTag_CountIs1()
         {
-            TrackData testTrack1 = new TrackData("ABC", 10000, 10000, 1000, 100, 10);
-            TrackData testTrack2 = new TrackData("ABC", 20000, 10000, 1000, 100, 10);
+            TrackData testTrack1 = new TrackData("ABC", 10000, 10000, 1000, timestamp, 100, 10);
+            TrackData testTrack2 = new TrackData("ABC", 20000, 10000, 1000, timestamp, 100, 10);
             uut.AddTrack(testTrack1);
             uut.AddTrack(testTrack2);
             Assert.That(() => uut._currentTracks.Count.Equals(1));
@@ -180,8 +187,8 @@ namespace ATM.Unit.Tests
         [Test]
         public void AddTrack_AddTrackThenAddTrackWithSameTag_XPositionOfObjectInListMatchesXPositionOfLastAddedTrack()
         {
-            TrackData testTrack1 = new TrackData("ABC", 10000, 10000, 1000, 100, 10);
-            TrackData testTrack2 = new TrackData("ABC", 20000, 10000, 1000, 100, 10);
+            TrackData testTrack1 = new TrackData("ABC", 10000, 10000, 1000, timestamp, 100, 10);
+            TrackData testTrack2 = new TrackData("ABC", 20000, 10000, 1000, timestamp, 100, 10);
             uut.AddTrack(testTrack1);
             uut.AddTrack(testTrack2);
             Assert.That(() => uut._currentTracks[0]._CurrentXcord.Equals(testTrack2._CurrentXcord));
@@ -192,9 +199,9 @@ namespace ATM.Unit.Tests
         [Test]
         public void RemoveTrack_Add3TracksRemove1TrackWIthValidTag_CountIs2()
         {
-            uut.AddTrack(new TrackData("ABC", 10000, 10000, 1000, 100, 10));
-            uut.AddTrack(new TrackData("DEF", 10000, 10000, 1000, 100, 10));
-            uut.AddTrack(new TrackData("GHI", 10000, 10000, 1000, 100, 10));
+            uut.AddTrack(new TrackData("ABC", 10000, 10000, 1000, timestamp, 100, 10));
+            uut.AddTrack(new TrackData("DEF", 10000, 10000, 1000, timestamp, 100, 10));
+            uut.AddTrack(new TrackData("GHI", 10000, 10000, 1000, timestamp, 100, 10));
 
             uut.RemoveTrack("ABC");
 
@@ -204,9 +211,9 @@ namespace ATM.Unit.Tests
         [Test]
         public void RemoveTrack_Add3TracksRemove1TrackWIthInvalidTag_ThrowsArgumentOutOfRangeException()
         {
-            uut.AddTrack(new TrackData("ABC", 10000, 10000, 1000, 100, 10));
-            uut.AddTrack(new TrackData("DEF", 10000, 10000, 1000, 100, 10));
-            uut.AddTrack(new TrackData("GHI", 10000, 10000, 1000, 100, 10));
+            uut.AddTrack(new TrackData("ABC", 10000, 10000, 1000, timestamp, 100, 10));
+            uut.AddTrack(new TrackData("DEF", 10000, 10000, 1000, timestamp, 100, 10));
+            uut.AddTrack(new TrackData("GHI", 10000, 10000, 1000, timestamp, 100, 10));
 
             Assert.That(() => uut.RemoveTrack("XYZ"),Throws.Exception.TypeOf<ArgumentOutOfRangeException>());
         }
@@ -222,7 +229,7 @@ namespace ATM.Unit.Tests
         [Test]
         public void CheckForSeperationEvent_TagsForTheTwoTracksAreTheSame_ThrowsException()
         {
-            TrackData track1 = new TrackData("ABC", 10000, 10000, 1000, 150, 50);
+            TrackData track1 = new TrackData("ABC", 10000, 10000, 1000, timestamp, 150, 50);
 
             string message = "Provided TrackDatas have the same Tag";
 
@@ -232,8 +239,8 @@ namespace ATM.Unit.Tests
         [Test]
         public void CheckForSeperationEvent_NoConditionsMet_ReturnsFalse()
         {
-            TrackData track1 = new TrackData("ABC", 10000, 10000, 1000, 150, 50);
-            TrackData track2 = new TrackData("DEF", 50000, 50000, 5000, 150, 50);
+            TrackData track1 = new TrackData("ABC", 10000, 10000, 1000, timestamp, 150, 50);
+            TrackData track2 = new TrackData("DEF", 50000, 50000, 5000, timestamp, 150, 50);
 
             Assert.That(() => uut.CheckForSeperationEvent(track1, track2).Equals(false));
         }
@@ -241,8 +248,8 @@ namespace ATM.Unit.Tests
         [Test]
         public void CheckForSeperationEvent_AllConditionsMet_ReturnsTrue()
         {
-            TrackData track1 = new TrackData("ABC", 30000, 30000, 1000, 150, 50);
-            TrackData track2 = new TrackData("DEF", 30001, 30001, 1001, 150, 50);
+            TrackData track1 = new TrackData("ABC", 30000, 30000, 1000, timestamp, 150, 50);
+            TrackData track2 = new TrackData("DEF", 30001, 30001, 1001, timestamp, 150, 50);
 
             Assert.That(() => uut.CheckForSeperationEvent(track1, track2).Equals(true));
         }
@@ -250,8 +257,8 @@ namespace ATM.Unit.Tests
         [Test]
         public void CheckForSeperationEvent_OnlyXConditionMet_ReturnsFalse()
         {
-            TrackData track1 = new TrackData("ABC", 50000-1, 10000, 1000, 150, 50);
-            TrackData track2 = new TrackData("DEF", 50000, 50000, 5000, 150, 50);
+            TrackData track1 = new TrackData("ABC", 50000-1, 10000, 1000, timestamp, 150, 50);
+            TrackData track2 = new TrackData("DEF", 50000, 50000, 5000, timestamp, 150, 50);
 
             Assert.That(() => uut.CheckForSeperationEvent(track1, track2).Equals(false));
         }
@@ -259,8 +266,8 @@ namespace ATM.Unit.Tests
         [Test]
         public void CheckForSeperationEvent_OnlyYConditionMet_ReturnsFalse()
         {
-            TrackData track1 = new TrackData("ABC", 10000, 50000-1, 1000, 150, 50);
-            TrackData track2 = new TrackData("DEF", 50000, 50000, 5000, 150, 50);
+            TrackData track1 = new TrackData("ABC", 10000, 50000-1, 1000, timestamp, 150, 50);
+            TrackData track2 = new TrackData("DEF", 50000, 50000, 5000, timestamp, 150, 50);
 
             Assert.That(() => uut.CheckForSeperationEvent(track1, track2).Equals(false));
         }
@@ -268,8 +275,8 @@ namespace ATM.Unit.Tests
         [Test]
         public void CheckForSeperationEvent_OnlyZConditionMet_ReturnsFalse()
         {
-            TrackData track1 = new TrackData("ABC", 10000, 10000, 5000-1, 150, 50);
-            TrackData track2 = new TrackData("DEF", 50000, 50000, 5000, 150, 50);
+            TrackData track1 = new TrackData("ABC", 10000, 10000, 5000-1, timestamp, 150, 50);
+            TrackData track2 = new TrackData("DEF", 50000, 50000, 5000, timestamp, 150, 50);
 
             Assert.That(() => uut.CheckForSeperationEvent(track1, track2).Equals(false));
         }
@@ -277,8 +284,8 @@ namespace ATM.Unit.Tests
         [Test]
         public void CheckForSeperationEvent_XandYConditionsMet_ReturnsFalse()
         {
-            TrackData track1 = new TrackData("ABC", 50000-1, 50000-1, 1000, 150, 50);
-            TrackData track2 = new TrackData("DEF", 50000, 50000, 5000, 150, 50);
+            TrackData track1 = new TrackData("ABC", 50000-1, 50000-1, 1000, timestamp, 150, 50);
+            TrackData track2 = new TrackData("DEF", 50000, 50000, 5000, timestamp, 150, 50);
 
             Assert.That(() => uut.CheckForSeperationEvent(track1, track2).Equals(false));
         }
@@ -286,8 +293,8 @@ namespace ATM.Unit.Tests
         [Test]
         public void CheckForSeperationEvent_YandZConditionsMet_ReturnsFalse()
         {
-            TrackData track1 = new TrackData("ABC", 10000, 50000 - 1, 5000-1, 150, 50);
-            TrackData track2 = new TrackData("DEF", 50000, 50000, 5000, 150, 50);
+            TrackData track1 = new TrackData("ABC", 10000, 50000 - 1, 5000-1, timestamp, 150, 50);
+            TrackData track2 = new TrackData("DEF", 50000, 50000, 5000, timestamp, 150, 50);
 
             Assert.That(() => uut.CheckForSeperationEvent(track1, track2).Equals(false));
         }
@@ -296,8 +303,8 @@ namespace ATM.Unit.Tests
         [Test]
         public void CheckForSeperationEvent_XandZConditionsMet_ReturnsFalse()
         {
-            TrackData track1 = new TrackData("ABC", 50000-1, 10000, 5000 - 1, 150, 50);
-            TrackData track2 = new TrackData("DEF", 50000, 50000, 5000, 150, 50);
+            TrackData track1 = new TrackData("ABC", 50000-1, 10000, 5000 - 1, timestamp, 150, 50);
+            TrackData track2 = new TrackData("DEF", 50000, 50000, 5000, timestamp,150, 50);
 
             Assert.That(() => uut.CheckForSeperationEvent(track1, track2).Equals(false));
         }
