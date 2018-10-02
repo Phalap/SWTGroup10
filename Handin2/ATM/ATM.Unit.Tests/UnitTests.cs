@@ -130,7 +130,6 @@ namespace ATM.Unit.Tests
 
         #endregion
 
-
         //Inactive mangler at blive lavet
         #region InActiveSeparationEvent logging
 
@@ -243,7 +242,6 @@ namespace ATM.Unit.Tests
         #endregion
 
         #endregion
-
 
         #region rendering
         #region renderSeperationEvent
@@ -389,9 +387,7 @@ namespace ATM.Unit.Tests
             Assert.That(() => airspace.CheckIfInMonitoredArea(50000, 50000, zMax).Equals(true));
         }
         #endregion
-        #endregion
-
-        
+        #endregion       
 
         #region AddTrack
         [Test]
@@ -561,7 +557,5 @@ namespace ATM.Unit.Tests
             Assert.That(() => uut.CheckForSeperationEvent(track1, track2).Equals(false));
         }
         #endregion
-
-
     }
 }
