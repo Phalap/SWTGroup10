@@ -150,14 +150,14 @@ namespace ATM
                     else
                     {
                         // Add new separation event 
-                        string time = DateTime.Now.ToString();
+                        //string time = DateTime.Now.ToString();
+                        string time = trackData1._TimeStamp;
                         List<TrackData> trackDataInSeperationEvent = new List<TrackData>();
                         trackDataInSeperationEvent.Add(trackData1);
                         trackDataInSeperationEvent.Add(trackData2);
 
                         SeperationEvent SeperationEvent = new SeperationEvent(time, trackDataInSeperationEvent, true);
                         _currentSeperationEvents.Add(SeperationEvent);
-                        _logger.LogActiveSeparationEvent(SeperationEvent);
                         _logger.LogActiveSeparationEvent(SeperationEvent);
                         return true;
                     }
@@ -209,6 +209,7 @@ namespace ATM
 
         public void RemoveSeparationEvents()
         {
+            //Log if conditions for seperation event are no longer met.
             foreach (var separationEvent in _currentSeperationEvents)
             {
                 if (Math.Abs(separationEvent._InvolvedTracks[0]._CurrentXcord -
@@ -222,10 +223,17 @@ namespace ATM
                 }
                 else
                 {
-                    _currentSeperationEvents.Remove(separationEvent);
                     _logger.LogInactiveSeparationEvent(separationEvent);
                 }
             }
+
+            //After logging, remove the given elements.
+            _currentSeperationEvents.RemoveAll(x => Math.Abs(x._InvolvedTracks[0]._CurrentXcord -
+                             x._InvolvedTracks[1]._CurrentXcord) < 5000 &&
+                    Math.Abs(x._InvolvedTracks[0]._CurrentYcord -
+                             x._InvolvedTracks[1]._CurrentYcord) < 5000 &&
+                    Math.Abs(x._InvolvedTracks[0]._CurrentZcord -
+                             x._InvolvedTracks[1]._CurrentZcord) < 300);
         }
 
         public void Update(TrackData trackdata)
