@@ -150,7 +150,8 @@ namespace ATM
                     else
                     {
                         // Add new separation event 
-                        string time = DateTime.Now.ToString();
+                        //string time = DateTime.Now.ToString();
+                        string time = trackData1._TimeStamp;
                         List<TrackData> trackDataInSeperationEvent = new List<TrackData>();
                         trackDataInSeperationEvent.Add(trackData1);
                         trackDataInSeperationEvent.Add(trackData2);

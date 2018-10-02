@@ -135,13 +135,13 @@ namespace ATM.Unit.Tests
         #region InActiveSeparationEvent logging
 
         [Test]
-        public void inactive_logging_nothingCalled_MethodHasNotBeenCalled()
+        public void logging_nothingCalled_LogInactiveSeperationEventMethodHasNotBeenCalled()
         {
             Assert.That(logger.LogInactiveSeparationEvent_timesCalled.Equals(0));
         }
 
         [Test]
-        public void inactive_logging_logInactiveSeparationEvent_MethodHasBeenCalled()
+        public void logging_LogInactiveSeperationEvent_MethodHasBeenCalled()
         {
             //Set up seperation event, that when checked, should be removed, 
             //since the conditions for a seperation event no longer are true.
@@ -161,10 +161,12 @@ namespace ATM.Unit.Tests
         }
 
         [Test]
-        public void inlogging_logActiveSeparationEvent_Tag1IsSame()
+        public void logging_LogInactiveSeperationEvent_Tag1IsSameAsTrackData1Tag()
         {
-            TrackData trackData1 = new TrackData("ABC", 10000, 20000, 3000, timestamp, 100, 10);
-            TrackData trackData2 = new TrackData("DEF", 10000, 20000, 3000, timestamp, 100, 10);
+            //Set up seperation event, that when checked, should be removed, 
+            //since the conditions for a seperation event no longer are true.
+            TrackData trackData1 = new TrackData("ABC", 10000, 10000, 1000, timestamp, 100, 10);
+            TrackData trackData2 = new TrackData("DEF", 20000, 20000, 3000, timestamp, 100, 10);
             List<TrackData> trackDatas = new List<TrackData>
             {
                 trackData1,
@@ -172,15 +174,19 @@ namespace ATM.Unit.Tests
             };
             SeperationEvent seperationEvent = new SeperationEvent(timestamp, trackDatas, true);
 
-            //uut.LogInactiveSeparationEvent(seperationEvent);
-            Assert.That(logger.ParametersList[0]._InvolvedTracks[0]._Tag.Equals(seperationEvent._InvolvedTracks[0]._Tag));
+            uut._currentSeperationEvents.Add(seperationEvent);
+
+            uut.RemoveSeparationEvents();
+            Assert.That(logger.ParametersList[0]._InvolvedTracks[0]._Tag.Equals(trackData1._Tag));
         }
 
         [Test]
-        public void logging_loginactiveSeparationEvent_Tag2IsSame()
+        public void logging_LogInactiveSeperationEvent_Tag2IsSameAsTrackData2Tag()
         {
-            TrackData trackData1 = new TrackData("ABC", 10000, 20000, 3000, timestamp, 100, 10);
-            TrackData trackData2 = new TrackData("DEF", 10000, 20000, 3000, timestamp, 100, 10);
+            //Set up seperation event, that when checked, should be removed, 
+            //since the conditions for a seperation event no longer are true.
+            TrackData trackData1 = new TrackData("ABC", 10000, 10000, 1000, timestamp, 100, 10);
+            TrackData trackData2 = new TrackData("DEF", 20000, 20000, 3000, timestamp, 100, 10);
             List<TrackData> trackDatas = new List<TrackData>
             {
                 trackData1,
@@ -188,15 +194,19 @@ namespace ATM.Unit.Tests
             };
             SeperationEvent seperationEvent = new SeperationEvent(timestamp, trackDatas, true);
 
-            //uut._logger.LogInactiveSeparationEvent(seperationEvent);
-            Assert.That(logger.ParametersList[0]._InvolvedTracks[1]._Tag.Equals(seperationEvent._InvolvedTracks[1]._Tag));
+            uut._currentSeperationEvents.Add(seperationEvent);
+
+            uut.RemoveSeparationEvents();
+            Assert.That(logger.ParametersList[0]._InvolvedTracks[1]._Tag.Equals(trackData2._Tag));
         }
 
         [Test]
-        public void logging_logInactiveSeparationEvent_OccurenteTimeIsSame()
+        public void logging_LogInactiveSeperationEvent_OccurenceTimeIsSameAsForSeperationEvent()
         {
-            TrackData trackData1 = new TrackData("ABC", 10000, 20000, 3000, timestamp, 100, 10);
-            TrackData trackData2 = new TrackData("DEF", 10000, 20000, 3000, timestamp, 100, 10);
+            //Set up seperation event, that when checked, should be removed, 
+            //since the conditions for a seperation event no longer are true.
+            TrackData trackData1 = new TrackData("ABC", 10000, 10000, 1000, timestamp, 100, 10);
+            TrackData trackData2 = new TrackData("DEF", 20000, 20000, 3000, timestamp, 100, 10);
             List<TrackData> trackDatas = new List<TrackData>
             {
                 trackData1,
@@ -204,15 +214,19 @@ namespace ATM.Unit.Tests
             };
             SeperationEvent seperationEvent = new SeperationEvent(timestamp, trackDatas, true);
 
-            //LogActiveSeparationEvent(seperationEvent);
+            uut._currentSeperationEvents.Add(seperationEvent);
+
+            uut.RemoveSeparationEvents();
             Assert.That(logger.ParametersList[0]._OccurrenceTime.Equals(seperationEvent._OccurrenceTime));
         }
 
         [Test]
-        public void logging_logInactiveSeparationEvent_RaisedIsSame()
+        public void logging_LogInactiveSeperationEvent_IsRaisedIsSameAsForSeperationEvent()
         {
-            TrackData trackData1 = new TrackData("ABC", 10000, 20000, 3000, timestamp, 100, 10);
-            TrackData trackData2 = new TrackData("DEF", 10000, 20000, 3000, timestamp, 100, 10);
+            //Set up seperation event, that when checked, should be removed, 
+            //since the conditions for a seperation event no longer are true.
+            TrackData trackData1 = new TrackData("ABC", 10000, 10000, 1000, timestamp, 100, 10);
+            TrackData trackData2 = new TrackData("DEF", 20000, 20000, 3000, timestamp, 100, 10);
             List<TrackData> trackDatas = new List<TrackData>
             {
                 trackData1,
@@ -220,7 +234,9 @@ namespace ATM.Unit.Tests
             };
             SeperationEvent seperationEvent = new SeperationEvent(timestamp, trackDatas, true);
 
-            //uut.LogActiveSeparationEvent(seperationEvent);
+            uut._currentSeperationEvents.Add(seperationEvent);
+
+            uut.RemoveSeparationEvents();
             Assert.That(logger.ParametersList[0]._IsRaised.Equals(seperationEvent._IsRaised));
         }
 
