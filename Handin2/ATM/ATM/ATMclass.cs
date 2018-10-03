@@ -147,7 +147,7 @@ namespace ATM
                     Math.Abs(trackData1._CurrentZcord - trackData2._CurrentZcord) < MIN_Z_DISTANCE)
                 {
                     // Check if separation event already exists
-                    if (GetSeperationEventInvolvedIn(trackData1, trackData2))
+                    if (IsInvolvedInSeperationEvent(trackData1, trackData2))
                     {
                         return true;
                     }
@@ -173,7 +173,7 @@ namespace ATM
             }
         }
 
-        public bool GetSeperationEventInvolvedIn(TrackData trackData1, TrackData trackData2)
+        public bool IsInvolvedInSeperationEvent(TrackData trackData1, TrackData trackData2)
         {
 
             if(_currentSeperationEvents.Exists(x => x._InvolvedTracks[0]._Tag == trackData1._Tag &&
