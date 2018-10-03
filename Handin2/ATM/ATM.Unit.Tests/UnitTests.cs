@@ -645,6 +645,18 @@ namespace ATM.Unit.Tests
 
             Assert.That( () => uut.IsInvolvedInSeperationEvent(trackData1, trackData2).Equals(true));
         }
+
+        [Test]
+        public void ATMclass_TrackDatasAreNotInvolvedInSeperationEvent_IsInvolvedInSeperationEventReturnsFalse()
+        {
+            //Create 2 trackDatas that are in seperation event.
+            TrackData trackData1 = new TrackData("ABC", xMin + 1, yMin + 1, zMin + 1, "180320180954", 200, 200);
+            TrackData trackData2 = new TrackData("DEF", xMin + 2, yMin + 2, zMin + 2, "180320180954", 200, 200);
+
+            //No current seperation events.
+
+            Assert.That(() => uut.IsInvolvedInSeperationEvent(trackData1, trackData2).Equals(false));
+        }
         #endregion
     }
 }
