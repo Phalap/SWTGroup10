@@ -597,6 +597,34 @@ namespace ATM.Unit.Tests
 
             Assert.That(fakeAirspace.CheckIfInMonitoredArea_timesCalled.Equals(2));
         }
+
+        [Test]
+        public void ATMclass_HandleNewTrackDataTrackDataInRange_CurrentTracksCountIs1()
+        {
+            //Track data with coordinates inside airspace.
+            TrackData trackData1 = new TrackData("ABC", xMin + 1, yMin + 1, zMin + 1, "180320180954", 200, 200);
+
+            uut.HandleNewTrackData(trackData1);
+
+            Assert.That(uut._currentTracks.Count.Equals(1));
+        }
+
+        [Test]
+        public void ATMclass_HandleNewTrackDataNewTrackDataComesOutOfRange_CurrentTracksCountIs0()
+        {
+            //We need uut with a REAL airspace, not a FAKE for this test.
+            uut = new ATMclass(logger, renderer, airspace);
+            //Track data with coordinates inside airspace.
+            TrackData trackData1 = new TrackData("ABC", xMin + 1, yMin + 1, zMin + 1, "180320180954", 200, 200);
+
+            //Track data with same tag, butf coordinates outside airspace.
+            TrackData trackData2 = new TrackData("ABC", xMin-1, yMin-1, zMin-1, "180320180954", 200, 200);
+
+            uut.HandleNewTrackData(trackData1);
+            uut.HandleNewTrackData(trackData2);
+
+            Assert.That(uut._currentTracks.Count.Equals(0));
+        }
         #endregion
     }
 }
