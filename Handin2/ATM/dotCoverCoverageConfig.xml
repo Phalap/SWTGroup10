@@ -14,10 +14,10 @@
     </IncludeFilters>
     <ExcludeFilters>
       <FilterEntry>
-      	<ModuleMask>*get_*</ModuleMask>
+      	<FunctionMask>*get_*</FunctionMask>
       </FilterEntry>
       <FilterEntry>
-      	<ModuleMask>*set_*</ModuleMask>
+      	<FunctionMask>*set_*</FunctionMask>
       </FilterEntry>
     </ExcludeFilters>
   </Filters>
