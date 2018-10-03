@@ -24,6 +24,8 @@ namespace ATM
             _currentCourse = currentCourse;
         }
 
+
+       
         public String _Tag { get { return _tag; } set { _tag = value; } }
         public double _CurrentXcord { get { return _currentXcord; } set { _currentXcord = value; } }
         public double _CurrentYcord { get { return _currentYcord; } set { _currentYcord = value; } }
