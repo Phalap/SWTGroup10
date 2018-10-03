@@ -26,12 +26,12 @@
 
       <!--Omit test coverage of class FileLogger-->
       <FilterEntry>
-      	<ClassMask>FileLogger</ClassMask>
+      	<ClassMask>ATM.FileLogger</ClassMask>
       </FilterEntry>
 
       <!--Omit test coverage of class ConsoleRenderer-->
       <FilterEntry>
-      	<ClassMask>ConsoleRenderer</ClassMask>
+      	<ClassMask>ATM.ConsoleRenderer</ClassMask>
       </FilterEntry>
 
       <!--Omit test coverage of nunit.framework-->
