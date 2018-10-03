@@ -16,12 +16,13 @@ namespace ATM
 
         private ILogger _logger;
         private IRenderer _renderer;
+        private IAirspace _airspace;
         //private ITransponderReceiver _transponderReceiver;
 
         public List<TrackData> _currentTracks { get; }
         public List<SeperationEvent> _currentSeperationEvents { get; }
 
-        private IAirspace _airspace;
+        
 
         public ATMclass(ILogger logger, IRenderer renderer, IAirspace airspace)
         {
