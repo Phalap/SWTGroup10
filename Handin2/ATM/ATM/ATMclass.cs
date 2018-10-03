@@ -10,6 +10,10 @@ namespace ATM
 {
     public class ATMclass : IObserver
     {
+        double MIN_X_DISTANCE = 5000;
+        double MIN_Y_DISTANCE = 5000;
+        double MIN_Z_DISTANCE = 300;
+
         private ILogger _logger;
         private IRenderer _renderer;
         //private ITransponderReceiver _transponderReceiver;
@@ -138,9 +142,9 @@ namespace ATM
             }
             else
             {
-                if (Math.Abs(trackData1._CurrentXcord - trackData2._CurrentXcord) < 10000 &&
-                    Math.Abs(trackData1._CurrentYcord - trackData2._CurrentYcord) < 10000 &&
-                    Math.Abs(trackData1._CurrentZcord - trackData2._CurrentZcord) < 20000)
+                if (Math.Abs(trackData1._CurrentXcord - trackData2._CurrentXcord) < MIN_X_DISTANCE &&
+                    Math.Abs(trackData1._CurrentYcord - trackData2._CurrentYcord) < MIN_Y_DISTANCE &&
+                    Math.Abs(trackData1._CurrentZcord - trackData2._CurrentZcord) < MIN_Z_DISTANCE)
                 {
                     // Check if separation event already exists
                     if (GetSeperationEventInvolvedIn(trackData1, trackData2))
@@ -213,11 +217,11 @@ namespace ATM
             foreach (var separationEvent in _currentSeperationEvents)
             {
                 if (Math.Abs(separationEvent._InvolvedTracks[0]._CurrentXcord -
-                             separationEvent._InvolvedTracks[1]._CurrentXcord) < 100000 &&
+                             separationEvent._InvolvedTracks[1]._CurrentXcord) < MIN_X_DISTANCE &&
                     Math.Abs(separationEvent._InvolvedTracks[0]._CurrentYcord -
-                             separationEvent._InvolvedTracks[1]._CurrentYcord) < 100000 &&
+                             separationEvent._InvolvedTracks[1]._CurrentYcord) < MIN_Y_DISTANCE &&
                     Math.Abs(separationEvent._InvolvedTracks[0]._CurrentZcord -
-                             separationEvent._InvolvedTracks[1]._CurrentZcord) < 20000)
+                             separationEvent._InvolvedTracks[1]._CurrentZcord) < MIN_Z_DISTANCE)
                 {
 
                 }
