@@ -625,6 +625,26 @@ namespace ATM.Unit.Tests
 
             Assert.That(uut._currentTracks.Count.Equals(0));
         }
+
+        [Test]
+        public void ATMclass_TrackDatasAreInvolvedInSeperationEvent_IsInvolvedInSeperationEventReturnsTrue()
+        {
+            //Create 2 trackDatas that are in seperation event.
+            TrackData trackData1 = new TrackData("ABC", xMin + 1, yMin + 1, zMin + 1, "180320180954", 200, 200);
+            TrackData trackData2 = new TrackData("DEF", xMin +2, yMin +2, zMin +2, "180320180954", 200, 200);
+
+            List<TrackData> trackDatas = new List<TrackData>()
+            {
+                trackData1,
+                trackData2
+            };
+
+            //Create seperation event from the two trackDatas and add to current seperation events.
+            SeperationEvent seperationEvent = new SeperationEvent(trackData1._TimeStamp, trackDatas, true);
+            uut._currentSeperationEvents.Add(seperationEvent);
+
+            Assert.That( () => uut.IsInvolvedInSeperationEvent(trackData1, trackData2).Equals(true));
+        }
         #endregion
     }
 }
