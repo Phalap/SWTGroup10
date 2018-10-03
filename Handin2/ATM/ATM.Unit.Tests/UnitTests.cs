@@ -644,7 +644,7 @@ namespace ATM.Unit.Tests
             SeperationEvent seperationEvent = new SeperationEvent(trackData1._TimeStamp, trackDatas, true);
             uut._currentSeperationEvents.Add(seperationEvent);
 
-            Assert.That( () => uut.IsInvolvedInSeperationEvent(trackData1, trackData2).Equals(true));
+            Assert.That( () => uut.CheckIfSeperationEventExistsFor(trackData1, trackData2).Equals(true));
         }
 
         [Test]
@@ -656,7 +656,7 @@ namespace ATM.Unit.Tests
 
             //No current seperation events.
 
-            Assert.That(() => uut.IsInvolvedInSeperationEvent(trackData1, trackData2).Equals(false));
+            Assert.That(() => uut.CheckIfSeperationEventExistsFor(trackData1, trackData2).Equals(false));
         }
         #endregion
 

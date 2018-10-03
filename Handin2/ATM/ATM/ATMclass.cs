@@ -142,16 +142,14 @@ namespace ATM
             }
             else
             {
+                //Check if conditions are met with the given TrackData-objects
                 if (Math.Abs(trackData1._CurrentXcord - trackData2._CurrentXcord) < MIN_X_DISTANCE &&
                     Math.Abs(trackData1._CurrentYcord - trackData2._CurrentYcord) < MIN_Y_DISTANCE &&
                     Math.Abs(trackData1._CurrentZcord - trackData2._CurrentZcord) < MIN_Z_DISTANCE)
                 {
-                    // Check if separation event already exists
-                    if (IsInvolvedInSeperationEvent(trackData1, trackData2))
-                    {
-                        return true;
-                    }
-                    else
+                    //If seperation event does not exist yet, create it and add it to currentSeperationEvents
+                    //Check if separation event already exists
+                    if (!CheckIfSeperationEventExistsFor(trackData1, trackData2))
                     {
                         // Add new separation event 
                         //string time = DateTime.Now.ToString();
@@ -163,9 +161,9 @@ namespace ATM
                         SeperationEvent SeperationEvent = new SeperationEvent(time, trackDataInSeperationEvent, true);
                         _currentSeperationEvents.Add(SeperationEvent);
                         _logger.LogActiveSeparationEvent(SeperationEvent);
-                        return true;
                     }
 
+                    return true;
                 }
 
                 else
@@ -173,7 +171,7 @@ namespace ATM
             }
         }
 
-        public bool IsInvolvedInSeperationEvent(TrackData trackData1, TrackData trackData2)
+        public bool CheckIfSeperationEventExistsFor(TrackData trackData1, TrackData trackData2)
         {
 
             if(_currentSeperationEvents.Exists(x => x._InvolvedTracks[0]._Tag == trackData1._Tag &&
