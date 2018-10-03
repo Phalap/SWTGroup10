@@ -229,11 +229,11 @@ namespace ATM
 
             //After logging, remove the given elements.
             _currentSeperationEvents.RemoveAll(x => Math.Abs(x._InvolvedTracks[0]._CurrentXcord -
-                             x._InvolvedTracks[1]._CurrentXcord) < 5000 &&
+                             x._InvolvedTracks[1]._CurrentXcord) < MIN_X_DISTANCE &&
                     Math.Abs(x._InvolvedTracks[0]._CurrentYcord -
-                             x._InvolvedTracks[1]._CurrentYcord) < 5000 &&
+                             x._InvolvedTracks[1]._CurrentYcord) < MIN_Y_DISTANCE &&
                     Math.Abs(x._InvolvedTracks[0]._CurrentZcord -
-                             x._InvolvedTracks[1]._CurrentZcord) < 300);
+                             x._InvolvedTracks[1]._CurrentZcord) < MIN_Z_DISTANCE);
         }
 
         public void Update(TrackData trackdata)
