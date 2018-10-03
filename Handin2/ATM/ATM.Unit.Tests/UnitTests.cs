@@ -44,7 +44,7 @@ namespace ATM.Unit.Tests
             uut = new ATMclass(logger, renderer, fakeAirspace);
         }
 
-        #region logging
+        #region Logging
 
         #region ActiveSeparationEvent logging
 
@@ -243,7 +243,7 @@ namespace ATM.Unit.Tests
 
         #endregion
 
-        #region rendering
+        #region Rendering
         #region renderSeperationEvent
         [Test]
         public void rendering_nothingCalled_RenderSeperationEventHasNotBeenCalled()
@@ -301,7 +301,7 @@ namespace ATM.Unit.Tests
         #endregion
         #endregion
 
-        #region airspace
+        #region Airspace
         [Test]
         public void airspace_coordinateInAirspace_returnsTrue()
         {
@@ -656,6 +656,42 @@ namespace ATM.Unit.Tests
             //No current seperation events.
 
             Assert.That(() => uut.IsInvolvedInSeperationEvent(trackData1, trackData2).Equals(false));
+        }
+        #endregion
+
+        #region TransponderReceiver
+        [Test]
+        public void TransponderReceiver_AttachATM_observersCountIs1()
+        {
+            var receiver = TransponderReceiverFactory.CreateTransponderDataReceiver();
+            var system = new ATM.TransponderReceiver(receiver);
+
+            system.Attach(uut);
+
+            Assert.That(() => system.getObserverCount().Equals(1));
+        }
+
+        [Test]
+        public void TransponderReceiver_AttachATMthenDetach_observersCountIs0()
+        {
+            var receiver = TransponderReceiverFactory.CreateTransponderDataReceiver();
+            var system = new ATM.TransponderReceiver(receiver);
+
+            system.Attach(uut);
+            system.Detach(uut);
+
+            Assert.That(() => system.getObserverCount().Equals(0));
+        }
+
+        [Test]
+        public void TransponderReceiver_DetachATMwithoutAttachingIt_observersCountIs0()
+        {
+            var receiver = TransponderReceiverFactory.CreateTransponderDataReceiver();
+            var system = new ATM.TransponderReceiver(receiver);
+
+            system.Detach(uut);
+
+            Assert.That(() => system.getObserverCount().Equals(0));
         }
         #endregion
     }

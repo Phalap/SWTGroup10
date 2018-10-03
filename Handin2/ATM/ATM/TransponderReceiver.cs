@@ -51,6 +51,11 @@ namespace ATM
             _observers.Remove(atm);
         }
 
+        public int getObserverCount()
+        {
+            return _observers.Count;
+        }
+
     }
 
 }
