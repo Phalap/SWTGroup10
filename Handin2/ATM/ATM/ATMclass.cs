@@ -156,10 +156,14 @@ namespace ATM
         public bool CheckIfSeperationEventExistsFor(TrackData trackData1, TrackData trackData2)
         {
 
-            if(_currentSeperationEvents.Exists(x => x._InvolvedTracks[0]._Tag == trackData1._Tag &&
-                                                    x._InvolvedTracks[1]._Tag == trackData2._Tag) || 
-               _currentSeperationEvents.Exists(x => x._InvolvedTracks[1]._Tag == trackData1._Tag &&
+            if(_currentSeperationEvents.Exists(x => x._InvolvedTracks[1]._Tag == trackData1._Tag && 
                                                     x._InvolvedTracks[0]._Tag == trackData2._Tag))
+            {
+                return true;
+            }
+
+            else if(_currentSeperationEvents.Exists(x => x._InvolvedTracks[1]._Tag == trackData2._Tag &&
+                                                         x._InvolvedTracks[0]._Tag == trackData1._Tag))
             {
                 return true;
             }
