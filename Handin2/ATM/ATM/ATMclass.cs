@@ -216,16 +216,12 @@ namespace ATM
             //Log if conditions for seperation event are no longer met.
             foreach (var separationEvent in _currentSeperationEvents)
             {
-                if (Math.Abs(separationEvent._InvolvedTracks[0]._CurrentXcord -
+                if (!(Math.Abs(separationEvent._InvolvedTracks[0]._CurrentXcord -
                              separationEvent._InvolvedTracks[1]._CurrentXcord) < MIN_X_DISTANCE &&
                     Math.Abs(separationEvent._InvolvedTracks[0]._CurrentYcord -
                              separationEvent._InvolvedTracks[1]._CurrentYcord) < MIN_Y_DISTANCE &&
                     Math.Abs(separationEvent._InvolvedTracks[0]._CurrentZcord -
-                             separationEvent._InvolvedTracks[1]._CurrentZcord) < MIN_Z_DISTANCE)
-                {
-
-                }
-                else
+                             separationEvent._InvolvedTracks[1]._CurrentZcord) < MIN_Z_DISTANCE))
                 {
                     _logger.LogInactiveSeparationEvent(separationEvent);
                 }
