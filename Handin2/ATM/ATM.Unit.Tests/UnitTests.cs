@@ -559,6 +559,36 @@ namespace ATM.Unit.Tests
         }
         #endregion
 
+        #region CheckIfSeperationEventExistsBetween
+        [Test]
+        public void CheckIfSeperationEventExistsBetween_TrackDatasInSameOrderAsForSeperationEvent_returnsTrue()
+        {
+            List<TrackData> trackDatas = new List<TrackData>()
+            {
+                new TrackData("ABC",1,2,3,"time",5,6),
+                new TrackData("DEF",1,2,3,"time",5,6)
+            };
+            SeperationEvent seperationEvent1 = new SeperationEvent("time", trackDatas, true);
+            uut._currentSeperationEvents.Add(seperationEvent1);
+            
+            Assert.That(() => uut.CheckIfSeperationEventExistsFor(trackDatas[0],trackDatas[1]).Equals(true));
+        }
+
+        [Test]
+        public void CheckIfSeperationEventExistsBetween_TrackDatasInDifferentOrderAsForSeperationEvent_returnsTrue()
+        {
+            List<TrackData> trackDatas = new List<TrackData>()
+            {
+                new TrackData("ABC",1,2,3,"time",5,6),
+                new TrackData("DEF",1,2,3,"time",5,6)
+            };
+            SeperationEvent seperationEvent1 = new SeperationEvent("time", trackDatas, true);
+            uut._currentSeperationEvents.Add(seperationEvent1);
+
+            Assert.That(() => uut.CheckIfSeperationEventExistsFor(trackDatas[1], trackDatas[0]).Equals(true));
+        }
+        #endregion
+
         #region ATMclass
         [Test]
         public void ATMclass_NothingCalled_IAirspaceCheckIfInMonitoredAreaIsCalledIs0()
