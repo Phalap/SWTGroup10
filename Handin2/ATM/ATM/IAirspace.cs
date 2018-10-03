@@ -8,7 +8,6 @@ namespace ATM
 {
     public interface IAirspace
     {
-
         bool CheckIfInMonitoredArea(double xCord, double yCord, double zCord);
 
     }

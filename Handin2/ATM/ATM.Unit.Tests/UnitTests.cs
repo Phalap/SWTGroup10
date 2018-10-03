@@ -557,5 +557,46 @@ namespace ATM.Unit.Tests
             Assert.That(() => uut.CheckForSeperationEvent(track1, track2).Equals(false));
         }
         #endregion
+
+        #region ATMclass
+        [Test]
+        public void ATMclass_NothingCalled_IAirspaceCheckIfInMonitoredAreaIsCalledIs0()
+        {
+            Assert.That(fakeAirspace.CheckIfInMonitoredArea_timesCalled.Equals(0));
+        }
+
+        [Test]
+        public void ATMclass_HandleNewTrackDataCalledWithNoCurrentTracks_IAirspaceCheckIfInMonitoredAreaIsCalledIs1()
+        {
+            TrackData trackData = new TrackData("ABC", 100, 200, 300, "180320180854", 100, 100);
+            uut.HandleNewTrackData(trackData);
+
+            Assert.That(fakeAirspace.CheckIfInMonitoredArea_timesCalled.Equals(1));
+        }
+
+        [Test]
+        public void ATMclass_HandleNewTrackDataCalledTwiceWithSameTag_IAirspaceCheckIfInMonitoredAreaIsCalledIs2()
+        {
+            TrackData trackData1 = new TrackData("ABC", 100, 200, 300, "180320180854", 100, 100);
+            TrackData trackData2 = new TrackData("ABC", 200, 300, 400, "180320180954", 200, 200);
+
+            uut.HandleNewTrackData(trackData1);
+            uut.HandleNewTrackData(trackData2);
+
+            Assert.That(fakeAirspace.CheckIfInMonitoredArea_timesCalled.Equals(2));
+        }
+
+        [Test]
+        public void ATMclass_HandleNewTrackDataCalledTwiceWithDifferentTags_IAirspaceCheckIfInMonitoredAreaIsCalledIs2()
+        {
+            TrackData trackData1 = new TrackData("ABC", 100, 200, 300, "180320180854", 100, 100);
+            TrackData trackData2 = new TrackData("DEF", 200, 300, 400, "180320180954", 200, 200);
+
+            uut.HandleNewTrackData(trackData1);
+            uut.HandleNewTrackData(trackData2);
+
+            Assert.That(fakeAirspace.CheckIfInMonitoredArea_timesCalled.Equals(2));
+        }
+        #endregion
     }
 }

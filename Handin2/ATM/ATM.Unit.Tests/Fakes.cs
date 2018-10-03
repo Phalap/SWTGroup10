@@ -57,6 +57,10 @@ namespace ATM.Unit.Tests
 
     class FakeAirspace : IAirspace
     {
+        public int CheckIfInMonitoredArea_timesCalled;
+        public double CheckIfInMonitoredArea_timesCalled_xCord;
+        public double CheckIfInMonitoredArea_timesCalled_yCord;
+        public double CheckIfInMonitoredArea_timesCalled_zCord;
         double _xMin { get; set; }
         double _xMax { get; set; }
         double _yMin { get; set; }
@@ -71,21 +75,25 @@ namespace ATM.Unit.Tests
             _yMax = yMax;
             _zMin = zMin;
             _zMax = zMax;
+
+            //Reset states
+            CheckIfInMonitoredArea_timesCalled = 0;
+            CheckIfInMonitoredArea_timesCalled_xCord = 0;
+            CheckIfInMonitoredArea_timesCalled_xCord = 0;
+            CheckIfInMonitoredArea_timesCalled_xCord = 0;
         }
         
         public bool CheckIfInMonitoredArea(double xCord, double yCord, double zCord)
         {
-            if(xCord<=_xMax && xCord>=_xMin) //Check if xMin<xCord<xMax
-            {
-                if (yCord <= _yMax && yCord >= _yMin) //Check if yMin<yCord<yMax
-                {
-                    if (zCord <= _zMax && zCord >= _zMin) //Check if zMin<zCord<zMax
-                    {
-                        return true;
-                    }
-                }
-            }
-            return false;
+            CheckIfInMonitoredArea_timesCalled++;
+
+            CheckIfInMonitoredArea_timesCalled_xCord = xCord;
+            CheckIfInMonitoredArea_timesCalled_yCord = yCord;
+            CheckIfInMonitoredArea_timesCalled_zCord = zCord;
+
+            //What is returned doesn't matter for the Fake version, since we're only interested in knowing
+            //the number of times the function is called, and the correct parameters are given with.
+            return true;
         }
     }
 }
