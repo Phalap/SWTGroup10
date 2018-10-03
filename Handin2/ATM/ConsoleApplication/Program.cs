@@ -16,27 +16,6 @@ namespace ConsoleApplication
         
         static void Main(string[] args)
         {
-            // MATHIAS TEST
-            /*
-            double timestamp = 235928121999;
-
-            IRenderer renderer = new ConsoleRenderer();
-
-            List<TrackData> involvedTracks = new List<TrackData>();
-            involvedTracks.Add(new TrackData("ABC", 10000, 10000, 1000, timestamp, 150, 50));
-            involvedTracks.Add(new TrackData("DEF", 10001, 10001, 1001, timestamp, 150, 50));
-
-            SeperationEvent seperationEvent = new SeperationEvent(timestamp, involvedTracks, true);
-
-            renderer.RenderSeperationEvent(seperationEvent);
-
-            TrackData trackData = new TrackData("XYZ", 100, 200, 300, timestamp, 10, 270);
-            
-            renderer.RenderTrack(trackData);
-
-            Console.ReadLine();
-            */
-
             // TEST AF SYSTEM UDEN SEPARATION EVENT
             FileLogger filelogger = new FileLogger();
             ConsoleRenderer consolerender = new ConsoleRenderer();

@@ -35,28 +35,15 @@ namespace ATM
 
         public void HandleNewTrackData(TrackData trackdata)
         {
-
+            //Check if no track data with given tag exists.
             if (_currentTracks.Exists(x => x._Tag == trackdata._Tag) == false)
             {
-
-                // Add the new track 
+                // Add the new track if coordinates are inside the given boundaries of the airspace.
                 if (_airspace.CheckIfInMonitoredArea(trackdata._CurrentXcord, trackdata._CurrentYcord,
                     trackdata._CurrentZcord))
                 {
                     AddTrack(trackdata);
                 }
-
-                // Check for potential seperation events 
-                CheckForSeperationEvents(trackdata);
-
-                // Check if new track already is involved in separation event 
-
-
-                // Render trackdata to console 
-                RenderTracks();
-
-                // Render seperationevents
-                RenderSeperationEvents();
             }
             else
             {
@@ -70,30 +57,24 @@ namespace ATM
 
                 // Remove tracks if out of airspace
 
-                if (_airspace.CheckIfInMonitoredArea(trackToEdit._CurrentXcord, trackToEdit._CurrentYcord,
-                    trackToEdit._CurrentZcord))
-                {
-
-                }
-                else
+                if (!(_airspace.CheckIfInMonitoredArea(trackToEdit._CurrentXcord, trackToEdit._CurrentYcord,
+                    trackToEdit._CurrentZcord)))
                 {
                     RemoveTrack(trackToEdit._Tag);
                 }
-                     
-
                 // Check for potential seperation events
                 CheckForSeperationEvents(trackToEdit);
-
-                // Remove separations event after update
-                RemoveSeparationEvents();
-
-                // Render updated tracks to console 
-                RenderTracks();
-
-                // Render seperation events
-                RenderSeperationEvents();
             }
-            
+           
+
+            // Remove separations event after update
+            RemoveSeparationEvents();
+
+            // Render updated tracks to console 
+            RenderTracks();
+
+            // Render seperation events
+            RenderSeperationEvents();
         }
 
         public void AddTrack(TrackData trackData)
@@ -124,12 +105,10 @@ namespace ATM
         {
             foreach (var track in _currentTracks)
             {
-                if (track._Tag == trackData._Tag)
+                if (!(track._Tag == trackData._Tag))
                 {
-
-                }
-                else
                     CheckForSeperationEvent(trackData, track);
+                }   
             }
         }
 
