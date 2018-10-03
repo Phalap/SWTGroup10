@@ -704,6 +704,9 @@ namespace ATM.Unit.Tests
             // Inject the fake TDR
             var transponderReceiver = new TransponderReceiver(_fakeTransponderReceiver);
 
+            //We need uut with a REAL airspace, not a FAKE for this test.
+            uut = new ATMclass(logger, renderer, airspace);
+
             // Setup test data
             List<string> testData = new List<string>();
             testData.Add("ATR423;39045;12932;14000;20151006213456789");
@@ -728,6 +731,9 @@ namespace ATM.Unit.Tests
             var _fakeTransponderReceiver = Substitute.For<ITransponderReceiver>();
             // Inject the fake TDR
             var transponderReceiver = new TransponderReceiver(_fakeTransponderReceiver);
+
+            //We need uut with a REAL airspace, not a FAKE for this test.
+            uut = new ATMclass(logger, renderer, airspace);
 
             // Setup test data
             List<string> testData = new List<string>();

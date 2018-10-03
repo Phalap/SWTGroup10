@@ -65,7 +65,10 @@ namespace ATM
                 // Check for potential seperation events
                 CheckForSeperationEvents(trackToEdit);
             }
-           
+
+            // Check for potential seperation events
+            CheckForSeperationEvents(trackdata);
+
 
             // Remove separations event after update
             RemoveSeparationEvents();
