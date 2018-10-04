@@ -8,7 +8,7 @@ using TransponderReceiver; //Needed in order to use the TransponderReceiver dll
 
 namespace ATM
 {
-    public class TransponderReceiver
+    public class TransponderReceiver : ISubject
     {
         private ITransponderReceiver receiver;
 
