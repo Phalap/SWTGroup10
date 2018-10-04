@@ -338,7 +338,7 @@ RenderSeparationEvents()</panel_attributes>
       <w>1440</w>
       <h>770</h>
     </coordinates>
-    <panel_attributes>*SD HandleNewTrackData - Update track and remove separation event*</panel_attributes>
+    <panel_attributes>*SD HandleNewTrackData - Update track and check separation event*</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
