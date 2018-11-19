@@ -109,7 +109,7 @@ namespace ATM
         {
             foreach (var track in _currentTracks)
             {
-                if (!(track._Tag == trackData._Tag))
+                if (trackData != null && track._Tag != trackData._Tag)
                 {
                     CheckForSeperationEvent(trackData, track);
                 }   
